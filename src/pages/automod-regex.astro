@@ -1,0 +1,99 @@
+---
+// layout imports
+import MainLayout from "../layouts/MainLayout.astro"
+
+// component imports
+import Gradient from "../components/Gradient"
+---
+
+<MainLayout>
+    <Gradient client:idle />
+    <div class="flex flex-col text-sm w-full gap-5
+            [&_h2]:text-xl
+            [&_h2]:font-bold
+">
+        <div class="flex flex-col gap-5 p-3 rounded-xl bg-zinc-950/50 backdrop-blur-xl
+              [&>div>div]:flex
+              [&>div>div]:gap-x-5
+              [&>div>div]:flex-wrap
+
+              [&_label]:flex
+              [&_label]:items-center
+              [&_label]:gap-1
+              [&_label]:mb-2
+              [&_label:not(:first-child)]:mr-3
+
+              [&_h3]:text-sm
+              [&_h3]:mb-3
+              [&_h3]:text-zinc-700
+              [&_h3]:font-medium
+
+              [&_i[class*='bxs']]:translate-y-[1.3px]
+  ">
+            <h2 class="">Settings</h2>
+            <hr class="border-white/10">
+            <div class="">
+                <h3 title="Prevents character replacements with lookalikes">Character Variant Options <i class='bx bxs-info-circle'></i></h3>
+                <div>
+                    <label title="hell, hllo, etc">Vowelless Variants
+                        <input type="checkbox" name="vowelless-variants" class="checkbox checkbox-sm" />
+                    </label>
+                    <label title="h3ll0, he110, etc">Number Variants
+                        <input type="checkbox" name="number-variants" class="checkbox checkbox-sm" />
+                    </label>
+                    <label title="hallo, hllo, etc">Letter Variants
+                        <input type="checkbox" name="letter-variants" class="checkbox checkbox-sm" />
+                    </label>
+                    <label title="hell, hllo, etc">Symbol Variants
+                        <input type="checkbox" name="symbol-variants" class="checkbox checkbox-sm" />
+                    </label>
+                    <label title="hell, hllo, etc">Emoji Variants
+                        <input type="checkbox" name="emoji-variants" class="checkbox checkbox-sm" />
+                    </label>
+                    <label title="hell, hllo, etc">Unicode Variants
+                        <input type="checkbox" name="unicode-variants" class="checkbox checkbox-sm" />
+                    </label>
+                </div>
+            </div>
+            <div class="">
+                <h3 title="Controls text spacing, casing, and repetition">Formatting Options <i class='bx bxs-info-circle'></i></h3>
+                <div>
+                    <label title="HeLLO, hElLo, etc">Case Insensitive
+                        <input type="checkbox" name="caseInsensitive" class="checkbox checkbox-sm" />
+                    </label>
+                    <label>Whitespace
+                        <input type="checkbox" name="whitespace" class="checkbox checkbox-sm" />
+                    </label>
+                    <label>Letter Spam
+                        <input type="checkbox" name="letter-spam" class="checkbox checkbox-sm" />
+                    </label>
+                </div>
+            </div>
+            <div class="">
+                <h3 title="Preserves word structure and boundaries">Structural Options <i class='bx bxs-info-circle'></i></h3>
+                <div>
+                    <label title="HeLLO, hElLo, etc">Partial Matches
+                        <input type="checkbox" name="partial-matches" class="checkbox checkbox-sm" />
+                    </label>
+                    <label>Merge Duplicates
+                        <input type="checkbox" name="merge-duplicates" class="checkbox checkbox-sm" />
+                    </label>
+                </div>
+            </div>
+        </div>
+        <input id="input" class="input text rounded-xl border-1 !p-3 bg-zinc-950/50 backdrop-blur-xl" type="text" name="input-text" placeholder="Type some text...">
+        <div class="flex gap-5">
+            <button class="btn rounded-x bg-zinc-950/50 backdrop-blur-xl hover:bg-black/30 p-3">Copy</button>
+            <code id="output" class="language-regex !border-0 !rounded-xl !bg-zinc-950/50 !backdrop-blur-xl !p-3 w-full">Output...</code>
+        </div>
+        <div class="flex flex-col gap-5 py-5 px-3 rounded-xl bg-zinc-950/50 backdrop-blur-xl">
+            <h2 class="text-xl font-bold">How to Test</h2>
+            <hr class="border-white/10">
+            <p>You can test your generated regex expression at <a class="link link-primary link-hover" href="https://regex101.com" target="_blank">Regex101</a></p>
+            <img class="max-w-2xl" src="https://i.imgur.com/UfMQnUQ.png" alt="example of a regex expression tested on regex101.com">
+        </div>
+    </div>
+    <script>
+        import '../scripts/automod-regex/generator.js'
+    </script>
+</MainLayout>
