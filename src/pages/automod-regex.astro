@@ -1,98 +1,127 @@
 ---
 // layout imports
 import MainLayout from "../layouts/MainLayout.astro"
-
-// component imports
-import Gradient from "../components/Gradient"
 ---
 
-<MainLayout>
-    <Gradient client:idle />
-    <div class="flex flex-col text-sm w-full gap-5
-            [&_h2]:text-xl
-            [&_h2]:font-bold
-">
-        <div class="flex flex-col gap-5 p-3 rounded-xl bg-zinc-950/50 backdrop-blur-xl
-              [&>div>div]:flex
-              [&>div>div]:gap-x-5
-              [&>div>div]:flex-wrap
+<MainLayout title="AutoMod Regex Generator" >
+    <section class="!w-full">
+        <div class="flex flex-col text-sm w-full gap-5
+            heir-h2:text-3xl
+        ">
+            <div class="flex flex-col gap-5 p-3 pb-4 rounded-xl bg-zinc-950/50
+                [&_label]:flex
+                [&_label]:flex-row-reverse
+                [&_label]:justify-end
+                [&_label]:gap-2
+                [&_label]:min-w-fit
 
-              [&_label]:flex
-              [&_label]:items-center
-              [&_label]:gap-1
-              [&_label]:mb-2
-              [&_label:not(:first-child)]:mr-3
+                [&_.option-section--options]:grid
+                [&_.option-section--options]:grid-cols-[repeat(auto-fill,minmax(145px,1fr))]
+                [&_.option-section--options]:gap-y-3
+                [&_.option-section--options]:gap-x-2
 
-              [&_h3]:text-sm
-              [&_h3]:mb-3
-              [&_h3]:text-zinc-700
-              [&_h3]:font-medium
+                [&_.option-section--title]:mb-4
 
-              [&_i[class*='bxs']]:translate-y-[1.3px]
-  ">
-            <h2 class="">Settings</h2>
-            <hr class="border-white/10">
-            <div class="">
-                <h3 title="Prevents character replacements with lookalikes">Character Variant Options <i class='bx bxs-info-circle'></i></h3>
+                [&_.option-section--title_p]:hidden
+                [&_.option-section--title_p]:text-xs
+                [&_.option-section--title_p]:text-zinc-600
+                md:[&_.option-section--title_p]:block
+
+                [&_.option-section--title_i]:opacity-[0.3]
+                hover:[&_.option-section--title_i]:opacity-[0.35]
+                md:[&_.option-section--title_i]:hidden
+
+                heir-h3:flex
+                heir-h3:items-center
+                heir-h3:gap-[1ch]
+                heir-h3:text-sm
+                heir-h3:font-medium
+                heir-h3:!text-zinc-400
+            ">
+                <h2>Settings</h2>
+                <hr class="border-white/10">
                 <div>
-                    <label title="hell, hllo, etc">Vowelless Variants
-                        <input type="checkbox" name="vowelless-variants" class="checkbox checkbox-sm" />
-                    </label>
-                    <label title="h3ll0, he110, etc">Number Variants
-                        <input type="checkbox" name="number-variants" class="checkbox checkbox-sm" />
-                    </label>
-                    <label title="hallo, hllo, etc">Letter Variants
-                        <input type="checkbox" name="letter-variants" class="checkbox checkbox-sm" />
-                    </label>
-                    <label title="hell, hllo, etc">Symbol Variants
-                        <input type="checkbox" name="symbol-variants" class="checkbox checkbox-sm" />
-                    </label>
-                    <label title="hell, hllo, etc">Emoji Variants
-                        <input type="checkbox" name="emoji-variants" class="checkbox checkbox-sm" />
-                    </label>
-                    <label title="hell, hllo, etc">Unicode Variants
-                        <input type="checkbox" name="unicode-variants" class="checkbox checkbox-sm" />
-                    </label>
+                    <div class="option-section--title">
+                        <h3>Character Variant Options <i class='icon-circle-help' title="Prevents character replacements with lookalikes"></i></h3>
+                        <p>Prevents character replacements with lookalikes</p>
+                    </div>
+                    <div  class="option-section--options">
+                        <label title="hell, hllo, etc">Vowelless Variants
+                            <input type="checkbox" name="vowelless-variants" class="checkbox checkbox-sm"/>
+                        </label>
+                        <label title="h3ll0, he110, etc">Number Variants
+                            <input type="checkbox" name="number-variants" class="checkbox checkbox-sm"/>
+                        </label>
+                        <label title="hallo, hllo, etc">Letter Variants
+                            <input type="checkbox" name="letter-variants" class="checkbox checkbox-sm"/>
+                        </label>
+                        <label title="hell, hllo, etc">Symbol Variants
+                            <input type="checkbox" name="symbol-variants" class="checkbox checkbox-sm"/>
+                        </label>
+                        <label title="hell, hllo, etc">Emoji Variants
+                            <input type="checkbox" name="emoji-variants" class="checkbox checkbox-sm"/>
+                        </label>
+                        <label title="hell, hllo, etc">Unicode Variants
+                            <input type="checkbox" name="unicode-variants" class="checkbox checkbox-sm"/>
+                        </label>
+                    </div>
+                </div>
+                <div>
+                    <div class="option-section--title">
+                        <h3>Formatting Options <i
+                       class='icon-circle-help' title="Controls text spacing, casing, and repetition"></i></h3>
+                        <p>Controls text spacing, casing, and repetition</p>
+                    </div>
+                    <div class="option-section--options">
+                        <label title="HeLLO, hElLo, etc">Case Insensitive
+                            <input type="checkbox" name="caseInsensitive" class="checkbox checkbox-sm"/>
+                        </label>
+                        <label>Whitespace
+                            <input type="checkbox" name="whitespace" class="checkbox checkbox-sm"/>
+                        </label>
+                        <label>Letter Spam
+                            <input type="checkbox" name="letter-spam" class="checkbox checkbox-sm"/>
+                        </label>
+                    </div>
+                </div>
+                <div>
+                    <div class="option-section--title">
+                        <h3>Structural Options <i
+                       class='icon-circle-help' title="Preserves word structure and boundaries"></i></h3>
+                        <p>Preserves word structure and boundaries</p>
+                    </div>
+                    <div class="option-section--options">
+                        <label title="HeLLO, hElLo, etc">Partial Matches
+                            <input type="checkbox" name="partial-matches" class="checkbox checkbox-sm"/>
+                        </label>
+                        <label>Merge Duplicates
+                            <input type="checkbox" name="merge-duplicates" class="checkbox checkbox-sm"/>
+                        </label>
+                    </div>
                 </div>
             </div>
-            <div class="">
-                <h3 title="Controls text spacing, casing, and repetition">Formatting Options <i class='bx bxs-info-circle'></i></h3>
-                <div>
-                    <label title="HeLLO, hElLo, etc">Case Insensitive
-                        <input type="checkbox" name="caseInsensitive" class="checkbox checkbox-sm" />
-                    </label>
-                    <label>Whitespace
-                        <input type="checkbox" name="whitespace" class="checkbox checkbox-sm" />
-                    </label>
-                    <label>Letter Spam
-                        <input type="checkbox" name="letter-spam" class="checkbox checkbox-sm" />
-                    </label>
-                </div>
+            <label class="form-control w-full">
+                <span class="label">
+                    <span class="label-text">Match phrase</span>
+                    <span class="label-text-alt"><span id="input-count">0</span> / 200</span>
+                </span>
+                <input id="input" class="input text rounded-xl border-1 !p-3 bg-zinc-950/50" type="text" name="input-text" placeholder="type something..." maxlength="200">
+            </label>
+            <div class="flex gap-5">
+                <button class="btn rounded-x bg-zinc-950/50 hover:bg-black/30 p-3">Copy</button>
+                <code id="output" class="language-regex whitespace-break-spaces !border-0 !rounded-xl !shadow-none !bg-zinc-950/50 !p-3 w-full">Output...</code>
             </div>
-            <div class="">
-                <h3 title="Preserves word structure and boundaries">Structural Options <i class='bx bxs-info-circle'></i></h3>
-                <div>
-                    <label title="HeLLO, hElLo, etc">Partial Matches
-                        <input type="checkbox" name="partial-matches" class="checkbox checkbox-sm" />
-                    </label>
-                    <label>Merge Duplicates
-                        <input type="checkbox" name="merge-duplicates" class="checkbox checkbox-sm" />
-                    </label>
-                </div>
+            <div class="flex flex-col gap-5 py-5 px-3 rounded-xl bg-zinc-950/50">
+                <h2>How to Test</h2>
+                <hr class="border-white/10">
+                <p>You can test your generated regex expression at <a class="link link-primary link-hover"
+                                                                      href="https://regex101.com" target="_blank">Regex101</a>
+                </p>
+                <img class="max-w-2xl" src="https://i.imgur.com/UfMQnUQ.png"
+                     alt="example of a regex expression tested on regex101.com">
             </div>
         </div>
-        <input id="input" class="input text rounded-xl border-1 !p-3 bg-zinc-950/50 backdrop-blur-xl" type="text" name="input-text" placeholder="Type some text...">
-        <div class="flex gap-5">
-            <button class="btn rounded-x bg-zinc-950/50 backdrop-blur-xl hover:bg-black/30 p-3">Copy</button>
-            <code id="output" class="language-regex !border-0 !rounded-xl !bg-zinc-950/50 !backdrop-blur-xl !p-3 w-full">Output...</code>
-        </div>
-        <div class="flex flex-col gap-5 py-5 px-3 rounded-xl bg-zinc-950/50 backdrop-blur-xl">
-            <h2 class="text-xl font-bold">How to Test</h2>
-            <hr class="border-white/10">
-            <p>You can test your generated regex expression at <a class="link link-primary link-hover" href="https://regex101.com" target="_blank">Regex101</a></p>
-            <img class="max-w-2xl" src="https://i.imgur.com/UfMQnUQ.png" alt="example of a regex expression tested on regex101.com">
-        </div>
-    </div>
+    </section>
     <script>
         import '../scripts/automod-regex/generator.js'
     </script>

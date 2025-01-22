@@ -1,18 +1,19 @@
 ---
 import "../styles/main.css";
 import "prismjs/themes/prism-dark.min.css"
+import "lucide-static/font/lucide.css"
 
 interface Props {
 	title?: string;
 }
 
-const { title = "AutoMod Regex Generator" } = Astro.props as Props;
+const { title = "Hazrd" } = Astro.props as Props;
 
 const description =
 	"A simple web app for generating regular expressions for discord server auto moderation";
 ---
 <!doctype html>
-<head>
+<head data-theme="light">
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<meta http-equiv="X-UA-Compatible" content="IE=7" />

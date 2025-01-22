@@ -6,8 +6,8 @@ import MainLayout from "../layouts/MainLayout.astro"
 import Gradient from "../components/Gradient"
 ---
 
-<MainLayout>
-    <Gradient client:idle />
+<MainLayout classList="!bg-transparent">
+    <Gradient client:load />
 
     <h1>Welcome</h1>
     <p>will get prettier soon</p>

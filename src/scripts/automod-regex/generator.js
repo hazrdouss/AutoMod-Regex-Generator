@@ -1,8 +1,10 @@
 import { numReplaceMap, symReplaceMap, letReplaceMap, emoReplaceMap, uniReplaceMap } from './replaceMaps.js';
 import Prism from 'prismjs';
+import escape from 'validator/lib/escape';
 import 'prismjs/components/prism-regex';
 
 const input = document.querySelector("#input");
+const inputCount = document.querySelector("#input-count");
 const output = document.querySelector("#output");
 const copy = document.querySelector(".btn");
 
@@ -22,7 +24,15 @@ const settings = {
     mergeDuplicates: document.querySelector("input[name='merge-duplicates']")
 };
 
-console.log("checked:", settings.whitespace.checked)
+const debounce = (callback, wait) => {
+    let timeoutId = null;
+    return (...args) => {
+        window.clearTimeout(timeoutId);
+        timeoutId = window.setTimeout(() => {
+            callback(...args);
+        }, wait);
+    };
+}
 
 function isVowel(letter) {
     const vowels = ["a", "e", "i", "o", "u"];
@@ -129,7 +139,7 @@ function buildExpression() {
         }
     }
 
-    return expression;
+    return escape(expression);
 }
 
 function showToast(text, type) {
@@ -166,17 +176,15 @@ copy.addEventListener("click", () => {
         });
 });
 
-input.oninput = () => {
-    output.innerText = buildExpression();
-    Prism.highlightElement(output)
-};
+input.oninput = debounce(() => {
+    output.innerHTML = buildExpression();
+    inputCount.innerText = input.value.length;
+    Prism.highlightElement(output);
+}, 300);
 
 Object.entries(settings).forEach(([_, element]) => {
-    element.oninput = () => {
-        output.innerText = buildExpression()
-        Prism.highlightElement(output)
-        console.log("input")
-    };
+    element.oninput = debounce(() => {
+        output.innerHTML = buildExpression();
+        Prism.highlightElement(output);
+    }, 300);
 });
-
-console.log(Prism)
