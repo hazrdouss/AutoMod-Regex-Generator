@@ -211,7 +211,7 @@ copy.addEventListener("click", () => {
 share.addEventListener("click", () => {
     if (shareHash) {
         navigator.clipboard
-            .writeText(`http://hazrd.pages.dev/automod-regex/#${shareHash}`)
+            .writeText(`https://hazrd.pages.dev/automod-regex/#${shareHash}`)
             .then(() => {
                 showToast("Copied", "success");
             })
@@ -259,7 +259,6 @@ function restoreFromHash() {
             return false; // Invalid hash
         }
     })()) {
-        console.log(window.location.hash)
         const hash = window.location.hash.slice(1);
         const data = JSON.parse(atob(hash));
 
