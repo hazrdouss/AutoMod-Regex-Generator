@@ -211,7 +211,7 @@ copy.addEventListener("click", () => {
 share.addEventListener("click", () => {
     if (shareHash) {
         navigator.clipboard
-            .writeText(`http://localhost:4321/automod-regex/#${shareHash}`)
+            .writeText(`http://hazrd.pages.dev/automod-regex/#${shareHash}`)
             .then(() => {
                 showToast("Copied", "success");
             })
