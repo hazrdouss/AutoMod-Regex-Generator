@@ -1,9 +1,6 @@
 ---
 // layout imports
 import MainLayout from "../layouts/MainLayout.astro"
-
-import {Picture} from 'astro:assets';
-import regex101_example from '../assets/images/regex101.png'
 ---
 
 <MainLayout title="AutoMod Regex Generator">
@@ -121,7 +118,7 @@ import regex101_example from '../assets/images/regex101.png'
                 <p>You can test your generated regex expression at <a class="link link-primary link-hover"
                                                                       href="https://regex101.com" target="_blank">Regex101</a>
                 </p>
-                <Picture class="[&_*]max-w-2xl" formats={["webp"]} src={regex101_example}
+                <img class="[&_*]max-w-2xl" src="/images/regex101.webp"
                      alt="example of a regex expression tested on regex101.com">
             </div>
         </div>
