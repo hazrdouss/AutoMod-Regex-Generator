@@ -3,12 +3,12 @@
 import MainLayout from "../layouts/MainLayout.astro"
 ---
 
-<MainLayout title="AutoMod Regex Generator" >
+<MainLayout title="AutoMod Regex Generator">
     <section class="!w-full">
         <div class="flex flex-col text-sm w-full gap-5
             heir-h2:text-3xl
         ">
-            <div class="flex flex-col gap-5 p-3 pb-4 rounded-xl bg-zinc-950/50
+            <form action="" class="flex flex-col gap-5 p-3 pb-4 rounded-xl bg-zinc-950/50
                 [&_label]:flex
                 [&_label]:flex-row-reverse
                 [&_label]:justify-end
@@ -21,31 +21,31 @@ import MainLayout from "../layouts/MainLayout.astro"
                 [&_.option-section--options]:gap-x-2
 
                 [&_.option-section--title]:mb-4
+                [&_.option-section--title_span]:block
 
-                [&_.option-section--title_p]:hidden
-                [&_.option-section--title_p]:text-xs
-                [&_.option-section--title_p]:text-zinc-600
-                md:[&_.option-section--title_p]:block
+                [&_.option-section--title_span:first-child]:flex
+                [&_.option-section--title_span:first-child]:items-center
+                [&_.option-section--title_span:first-child]:gap-[1ch]
 
+                [&_.option-section--title_span:last-child]:hidden
+                [&_.option-section--title_span:last-child]:text-xs
+                [&_.option-section--title_span:last-child]:text-zinc-600
+                md:[&_.option-section--title_span:last-child]:block
+
+                [&_.option-section--title_i]:transition-opacity
+                [&_.option-section--title_i]:duration-200
                 [&_.option-section--title_i]:opacity-[0.3]
-                hover:[&_.option-section--title_i]:opacity-[0.35]
+                hover:[&_.option-section--title_i]:opacity-[0.5]
                 md:[&_.option-section--title_i]:hidden
-
-                heir-h3:flex
-                heir-h3:items-center
-                heir-h3:gap-[1ch]
-                heir-h3:text-sm
-                heir-h3:font-medium
-                heir-h3:!text-zinc-400
             ">
                 <h2>Settings</h2>
                 <hr class="border-white/10">
-                <div>
-                    <div class="option-section--title">
-                        <h3>Character Variant Options <i class='icon-circle-help' title="Prevents character replacements with lookalikes"></i></h3>
-                        <p>Prevents character replacements with lookalikes</p>
-                    </div>
-                    <div  class="option-section--options">
+                <fieldset>
+                    <legend class="option-section--title">
+                        <span>Character Variant Options <i class='icon-circle-help' title="Prevents character replacements with lookalikes"></i></span>
+                        <span>Prevents character replacements with lookalikes</span>
+                    </legend>
+                    <div class="option-section--options">
                         <label title="hell, hllo, etc">Vowelless Variants
                             <input type="checkbox" name="vowelless-variants" class="checkbox checkbox-sm"/>
                         </label>
@@ -65,13 +65,12 @@ import MainLayout from "../layouts/MainLayout.astro"
                             <input type="checkbox" name="unicode-variants" class="checkbox checkbox-sm"/>
                         </label>
                     </div>
-                </div>
-                <div>
-                    <div class="option-section--title">
-                        <h3>Formatting Options <i
-                       class='icon-circle-help' title="Controls text spacing, casing, and repetition"></i></h3>
-                        <p>Controls text spacing, casing, and repetition</p>
-                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend class="option-section--title">
+                        <span>Formatting Options <i class='icon-circle-help' title="Controls text spacing, casing, and repetition"></i></span>
+                        <span>Controls text spacing, casing, and repetition</span>
+                    </legend>
                     <div class="option-section--options">
                         <label title="HeLLO, hElLo, etc">Case Insensitive
                             <input type="checkbox" name="caseInsensitive" class="checkbox checkbox-sm"/>
@@ -83,13 +82,12 @@ import MainLayout from "../layouts/MainLayout.astro"
                             <input type="checkbox" name="letter-spam" class="checkbox checkbox-sm"/>
                         </label>
                     </div>
-                </div>
-                <div>
-                    <div class="option-section--title">
-                        <h3>Structural Options <i
-                       class='icon-circle-help' title="Preserves word structure and boundaries"></i></h3>
-                        <p>Preserves word structure and boundaries</p>
-                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend class="option-section--title">
+                        <span>Structural Options <i class='icon-circle-help' title="Preserves word structure and boundaries"></i></span>
+                        <span>Preserves word structure and boundaries</span>
+                    </legend>
                     <div class="option-section--options">
                         <label title="HeLLO, hElLo, etc">Partial Matches
                             <input type="checkbox" name="partial-matches" class="checkbox checkbox-sm"/>
@@ -98,19 +96,22 @@ import MainLayout from "../layouts/MainLayout.astro"
                             <input type="checkbox" name="merge-duplicates" class="checkbox checkbox-sm"/>
                         </label>
                     </div>
-                </div>
-            </div>
+                </fieldset>
+            </form>
             <label class="form-control w-full">
                 <span class="label">
                     <span class="label-text">Match phrase</span>
                     <span class="label-text-alt"><span id="input-count">0</span> / 200</span>
                 </span>
-                <input id="input" class="input text rounded-xl border-1 !p-3 bg-zinc-950/50" type="text" name="input-text" placeholder="type something..." maxlength="200">
+                <input id="input" class="input text rounded-xl border-1 !p-3 bg-zinc-950/50" type="text"
+                       name="input-text" placeholder="type something..." maxlength="200">
             </label>
             <div class="flex gap-5">
-                <button class="btn rounded-x bg-zinc-950/50 hover:bg-black/30 p-3">Copy</button>
-                <code id="output" class="language-regex whitespace-break-spaces !border-0 !rounded-xl !shadow-none !bg-zinc-950/50 !p-3 w-full">Output...</code>
+                <button id="copy" class="btn rounded-x bg-zinc-950/50 hover:bg-black/30 p-3">Copy</button>
+                <code id="output"
+                      class="language-regex whitespace-break-spaces !border-0 !rounded-xl !shadow-none !bg-zinc-950/50 !p-3 w-full">Output...</code>
             </div>
+            <button id="share" class="btn btn-info rounded-x !p-3">Share</button>
             <div class="flex flex-col gap-5 py-5 px-3 rounded-xl bg-zinc-950/50">
                 <h2>How to Test</h2>
                 <hr class="border-white/10">
@@ -123,6 +124,6 @@ import MainLayout from "../layouts/MainLayout.astro"
         </div>
     </section>
     <script>
-        import '../scripts/automod-regex/generator.js'
+       import '../scripts/automod-regex/generator.js'
     </script>
 </MainLayout>

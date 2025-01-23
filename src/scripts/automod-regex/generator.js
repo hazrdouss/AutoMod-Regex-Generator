@@ -1,14 +1,17 @@
-import { numReplaceMap, symReplaceMap, letReplaceMap, emoReplaceMap, uniReplaceMap } from './replaceMaps.js';
-import Prism from 'prismjs';
-import escape from 'validator/lib/escape';
-import 'prismjs/components/prism-regex';
+import {emoReplaceMap, letReplaceMap, numReplaceMap, symReplaceMap, uniReplaceMap,} from "./replaceMaps.js";
+import Prism from "prismjs";
+import escape from "validator/lib/escape";
+import "prismjs/components/prism-regex";
 
-const input = document.querySelector("#input");
 const inputCount = document.querySelector("#input-count");
 const output = document.querySelector("#output");
-const copy = document.querySelector(".btn");
+const copy = document.querySelector("#copy");
+const share = document.querySelector("#share");
 
-const settings = {
+let shareHash = "";
+
+let input = document.querySelector("#input");
+let settings = {
     vowellessVariants: document.querySelector("input[name='vowelless-variants']"),
     numberVariants: document.querySelector("input[name='number-variants']"),
     letterVariants: document.querySelector("input[name='letter-variants']"),
@@ -22,7 +25,28 @@ const settings = {
 
     partialMatches: document.querySelector("input[name='partial-matches']"),
     mergeDuplicates: document.querySelector("input[name='merge-duplicates']")
-};
+}
+
+function getData() {
+    return {
+        input: input.value,
+        settings: {
+            vowellessVariants: settings.vowellessVariants.checked,
+            numberVariants: settings.numberVariants.checked,
+            letterVariants: settings.letterVariants.checked,
+            symbolVariants: settings.symbolVariants.checked,
+            emojiVariants: settings.emojiVariants.checked,
+            unicodeVariants: settings.unicodeVariants.checked,
+
+            caseInsensitive: settings.caseInsensitive.checked,
+            whitespace: settings.whitespace.checked,
+            letterSpam: settings.letterSpam.checked,
+
+            partialMatches: settings.partialMatches.checked,
+            mergeDuplicates: settings.mergeDuplicates.checked,
+        }
+    };
+}
 
 const debounce = (callback, wait) => {
     let timeoutId = null;
@@ -32,7 +56,7 @@ const debounce = (callback, wait) => {
             callback(...args);
         }, wait);
     };
-}
+};
 
 function isVowel(letter) {
     const vowels = ["a", "e", "i", "o", "u"];
@@ -40,11 +64,11 @@ function isVowel(letter) {
 }
 
 function regEscape(string) {
-    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
 function buildExpression() {
-    let content = input.value;
+    let content = getData().input;
     let expression = "";
     let lastChar = "";
 
@@ -54,14 +78,13 @@ function buildExpression() {
         let characterSet = "";
 
         // Merge Duplicates
-        if (settings.mergeDuplicates.checked && char === lastChar) {
-            if (!settings.partialMatches.checked && i === content.length - 1) {
+        if (getData().settings.mergeDuplicates && char === lastChar) {
+            if (!getData().settings.partialMatches && i === content.length - 1) {
                 expression += "(\\z|\\s)";
             }
             continue;
         }
         lastChar = char;
-
 
         // --- --- --- --- --- --- --- --- --- ---
         // CHARACTER SET GROUP
@@ -71,70 +94,79 @@ function buildExpression() {
         characterSet += `${char}`;
 
         // Partial Matches
-        if (!settings.partialMatches.checked && i === 0) {
+        if (!getData().settings.partialMatches && i === 0) {
             expression += "(\\A|\\s)";
         }
         // Case Insensitive
-        if (settings.caseInsensitive.checked && i === 0) {
+        if (getData().settings.caseInsensitive && i === 0) {
             expression += "(?i)";
         }
 
         // Letter Variants
-        if (settings.letterVariants.checked && letReplaceMap[char] !== undefined) {
+        if (getData().settings.letterVariants && letReplaceMap[char] !== undefined) {
             letReplaceMap[char].forEach((replacement) => {
                 characterSet += `|${replacement}`;
             });
         }
         // Number Variants
-        if (settings.numberVariants.checked && numReplaceMap[char] !== undefined) {
+        if (getData().settings.numberVariants && numReplaceMap[char] !== undefined) {
             numReplaceMap[char].forEach((replacement) => {
                 characterSet += `|${replacement}`;
             });
         }
         // Symbol Variants
-        if (settings.symbolVariants.checked && symReplaceMap[char] !== undefined) {
+        if (getData().settings.symbolVariants && symReplaceMap[char] !== undefined) {
             symReplaceMap[char].forEach((replacement) => {
                 characterSet += `|${replacement}`;
             });
         }
         // Emoji Variants
-        if (settings.emojiVariants.checked && emoReplaceMap[char] !== undefined) {
+        if (getData().settings.emojiVariants && emoReplaceMap[char] !== undefined) {
             emoReplaceMap[char].forEach((replacement) => {
                 characterSet += `|${replacement}`;
             });
         }
         // Unicode Variants
-        if (settings.unicodeVariants.checked && uniReplaceMap[char] !== undefined) {
+        if (getData().settings.unicodeVariants && uniReplaceMap[char] !== undefined) {
             uniReplaceMap[char].forEach((replacement) => {
                 characterSet += `|${replacement}`;
             });
         }
 
-        group += `(${characterSet})`
+        group += `(${characterSet})`;
 
-        if (settings.whitespace.checked) {
+        if (getData().settings.whitespace) {
             group += `\\s*`;
         }
 
-        expression += `(${group})`
+        expression += `(${group})`;
 
-        if (settings.letterSpam.checked) {
-            expression += "+"
+        if (getData().settings.letterSpam) {
+            expression += "+";
         }
-        if (settings.vowellessVariants.checked && isVowel(char) && content.length > 1) {
+        if (
+            getData().settings.vowellessVariants &&
+            isVowel(char) &&
+            content.length > 1
+        ) {
             if (expression.endsWith("+")) {
-                expression = expression.slice(0, expression.length - 1)
+                expression = expression.slice(0, expression.length - 1);
             }
-            expression += "?"
+            expression += "?";
         }
-        if (settings.vowellessVariants.checked && settings.letterSpam.checked && isVowel(char) && content.length > 1) {
+        if (
+            getData().settings.vowellessVariants &&
+            getData().settings.letterSpam &&
+            isVowel(char) &&
+            content.length > 1
+        ) {
             if (expression.endsWith("?")) {
-                expression = expression.slice(0, expression.length - 1)
+                expression = expression.slice(0, expression.length - 1);
             }
-            expression += "*"
+            expression += "*";
         }
 
-        if (!settings.partialMatches.checked && i === content.length - 1) {
+        if (!getData().settings.partialMatches && i === content.length - 1) {
             expression += "(\\z|\\s)";
         }
     }
@@ -167,24 +199,83 @@ copy.addEventListener("click", () => {
             showToast("Copied", "success");
         })
         .catch((err) => {
-            console.log("unable to copy", err)
+            console.log("unable to copy", err);
             window.getSelection().selectAllChildren(output);
             showToast(
                 "Cant copy cuz of stupid restrictions (press CTRL + C)",
-                "error"
+                "error",
             );
         });
 });
+
+share.addEventListener("click", () => {
+    if (shareHash) {
+        navigator.clipboard
+            .writeText(`http://localhost:4321/automod-regex/#${shareHash}`)
+            .then(() => {
+                showToast("Copied", "success");
+            })
+            .catch((err) => {
+                console.log("unable to copy", err);
+                window.getSelection().selectAllChildren(output);
+                showToast(
+                    "Cant copy cuz of stupid restrictions (press CTRL + C)",
+                    "error",
+                );
+            });
+    } else {
+        showToast("Nothing to copy right now!", "error");
+    }
+});
+
+function updateIdentifier() {
+    shareHash = btoa(JSON.stringify(getData()))
+}
 
 input.oninput = debounce(() => {
     output.innerHTML = buildExpression();
     inputCount.innerText = input.value.length;
     Prism.highlightElement(output);
+
+    updateIdentifier()
 }, 300);
 
 Object.entries(settings).forEach(([_, element]) => {
     element.oninput = debounce(() => {
         output.innerHTML = buildExpression();
         Prism.highlightElement(output);
-    }, 300);
+
+        updateIdentifier()
+    }, 100);
 });
+
+function restoreFromHash() {
+    if (window.location.hash && (() => {
+        try {
+            const hash = window.location.hash.slice(1); // Remove the `#`
+            const data = JSON.parse(atob(hash)); // Decode the hash
+            return data && typeof data === 'object' && data.settings; // Check validity
+        } catch (e) {
+            return false; // Invalid hash
+        }
+    })()) {
+        console.log(window.location.hash)
+        const hash = window.location.hash.slice(1);
+        const data = JSON.parse(atob(hash));
+
+        if (data) {
+            input.value = data.input || "";
+
+            Object.keys(data.settings).forEach((key) => {
+                if (settings[key]) {
+                    settings[key].checked = data.settings[key];
+                }
+            });
+
+            output.innerHTML = buildExpression();
+        }
+    }
+}
+
+window.onload = () => restoreFromHash()
+window.onhashchange = () => restoreFromHash()
