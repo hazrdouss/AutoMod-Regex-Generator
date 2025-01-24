@@ -4,6 +4,7 @@ import MainLayout from "../layouts/MainLayout.astro"
 ---
 
 <MainLayout title="AutoMod Regex Generator">
+    <link rel="preload" href="https://regex101.labs.gravwell.io/" as="document">
     <section class="!w-full">
         <div class="flex flex-col text-sm w-full gap-5
             heir-h2:text-3xl
@@ -106,20 +107,17 @@ import MainLayout from "../layouts/MainLayout.astro"
                 <input id="input" class="input text rounded-xl border-1 !p-3 bg-zinc-950/50" type="text"
                        name="input-text" placeholder="type something..." maxlength="200">
             </label>
-            <div class="flex gap-5">
+            <div class="flex gap-5 relative">
                 <button id="copy" class="btn rounded-x bg-zinc-950/50 hover:bg-black/30 p-3">Copy</button>
+                <button id="share" class="  rounded-x rounded-tl-lg rounded-br-lg rounded-bl-none !p-1 bg-sky-500 hover:bg-sky-400 absolute right-0 bottom-0 rounded-tr-none">Share</button>
                 <code id="output"
-                      class="language-regex whitespace-break-spaces !border-0 !rounded-xl !shadow-none !bg-zinc-950/50 !p-3 w-full">Output...</code>
+                      class="language-regex overflow-hidden whitespace-break-spaces !border-0 !rounded-xl !shadow-none !bg-zinc-950/50 !p-3 w-full !pb-6">Output...</code>
             </div>
-            <button id="share" class="btn btn-info rounded-x !p-3">Share</button>
             <div class="flex flex-col gap-5 py-5 px-3 rounded-xl bg-zinc-950/50">
-                <h2>How to Test</h2>
+                <h2>Test Regex</h2>
                 <hr class="border-white/10">
-                <p>You can test your generated regex expression at <a class="link link-primary link-hover"
-                                                                      href="https://regex101.com" target="_blank">Regex101</a>
-                </p>
-                <img class="[&_*]max-w-2xl" src="/images/regex101.webp"
-                     alt="example of a regex expression tested on regex101.com">
+                <iframe loading="eager" src="https://regex101.labs.gravwell.io/" height="325px" class="max-w-[600px]" sandbox="allow-scripts allow-same-origin"/>
+                <span class="text-neutral-400 text-xs">Credit to <a class="text-sky-500" href="https://regex101.com" target="_blank" rel="noreferrer noopener">Regex101</a></span>
             </div>
         </div>
     </section>

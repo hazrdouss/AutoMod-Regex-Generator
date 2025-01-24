@@ -229,17 +229,34 @@ share.addEventListener("click", () => {
 });
 
 function updateIdentifier() {
-    shareHash = btoa(JSON.stringify(getData()))
+    const data = getData()
+    let settings = 0
+    settings += data.settings.vowellessVariants << 0
+    settings += data.settings.numberVariants << 1
+    settings += data.settings.letterVariants << 2
+    settings += data.settings.symbolVariants << 3
+    settings += data.settings.emojiVariants << 4
+    settings += data.settings.unicodeVariants << 5
+    settings += data.settings.caseInsensitive << 6
+    settings += data.settings.whitespace << 7
+    settings += data.settings.letterSpam << 8
+    settings += data.settings.partialMatches << 9
+    settings += data.settings.mergeDuplicates << 10
+    const marshalledValue = JSON.stringify({
+        input: data.input,
+        settings: settings
+    })
+    shareHash = btoa(marshalledValue);
 }
 
 input.oninput = debounce(() => {
-    output.innerHTML = buildExpression();
+    const expression = buildExpression()
+    output.innerHTML = expression
     inputCount.innerText = input.value.length;
     Prism.highlightElement(output);
 
     updateIdentifier()
 }, 300);
-
 Object.entries(settings).forEach(([_, element]) => {
     element.oninput = debounce(() => {
         output.innerHTML = buildExpression();
@@ -264,13 +281,17 @@ function restoreFromHash() {
 
         if (data) {
             input.value = data.input || "";
-
-            Object.keys(data.settings).forEach((key) => {
-                if (settings[key]) {
-                    settings[key].checked = data.settings[key];
-                }
-            });
-
+            settings.vowellessVariants.checked = data.settings & 1
+            settings.numberVariants.checked = data.settings & 2
+            settings.letterVariants.checked = data.settings & 4
+            settings.symbolVariants.checked = data.settings & 8
+            settings.emojiVariants.checked = data.settings & 16
+            settings.unicodeVariants.checked = data.settings & 32
+            settings.caseInsensitive.checked = data.settings & 64
+            settings.whitespace.checked = data.settings & 128
+            settings.letterSpam.checked = data.settings & 256
+            settings.partialMatches.checked = data.settings & 512
+            settings.mergeDuplicates.checked = data.settings & 1024
             output.innerHTML = buildExpression();
         }
     }
