@@ -16,14 +16,12 @@
     /*outline: solid 0.1px hsla(0 0% 100% / 0.5) !important;*/
   }
 
-  body {
-    @apply bg-zinc-800 py-20;
+  main > section:first-of-type {
+    @apply pt-24;
   }
-  /*section:first-of-type {*/
-  /*    @apply min-h-[calc(100svh-7rem*2)];*/
-  /*}*/
+
   section {
-    @apply flex justify-center items-center mx-auto min-h-svh container px-28 xl:px-24 lg:px-20 md:px-12 sm:px-4;
+    @apply flex flex-col justify-center items-center mx-auto min-h-svh container px-28 xl:px-24 lg:px-20 md:px-12 sm:px-4;
   }
 
   h1,

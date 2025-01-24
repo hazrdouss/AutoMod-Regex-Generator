@@ -1,13 +1,19 @@
 ---
 // layout imports
 import Head from '../layouts/MainHead.astro'
-const { classList, title } = Astro.props;
+import NavBar from "./NavBar.astro";
+const {bodyClasses, mainClasses, title} = Astro.props;
 ---
 
 <html data-theme="business" lang="en">
-<Head {title} />
-<body class={classList}>
-   <slot />
+<Head {title}/>
+<body class="relative bg-zinc-800" class:list={[bodyClasses]}>
+<header class="fixed top-0 right-0 left-0 h-16 z-10">
+    <NavBar/>
+</header>
+<main class="" class:list={mainClasses}>
+    <slot/>
+</main>
 <script src="prismjs/prism.js"></script>
 </body>
 </html>

@@ -1,9 +1,10 @@
 ---
 // layout imports
-import MainLayout from "../layouts/MainLayout.astro"
+import MainLayout from "../../../layouts/MainLayout.astro"
+import Breadcrumbs from "../../../layouts/Breadcrumbs.astro";
 ---
 
-<MainLayout title="AutoMod Regex Generator">
+<MainLayout classList="test" title="AutoMod Regex Generator">
     <link rel="preload" href="https://regex101.labs.gravwell.io/" as="document">
     <section class="!w-full">
         <div class="flex flex-col text-sm w-full gap-5
@@ -108,20 +109,21 @@ import MainLayout from "../layouts/MainLayout.astro"
                        name="input-text" placeholder="type something..." maxlength="200">
             </label>
             <div class="flex gap-5 relative">
-                <button id="copy" class="btn rounded-x bg-zinc-950/50 hover:bg-black/30 p-3">Copy</button>
-                <button id="share" class="  rounded-x rounded-tl-lg rounded-br-lg rounded-bl-none !p-1 bg-sky-500 hover:bg-sky-400 absolute right-0 bottom-0 rounded-tr-none">Share</button>
+                <button id="copy" class="btn btn-success !rounded-xl !p-3">Copy</button>
+                <button id="share" class="btn btn-info rounded-x rounded-tl-lg rounded-br-lg rounded-bl-none !p-1.5 min-h-0 !h-[initial] absolute right-0 bottom-0 rounded-tr-none">Share</button>
                 <code id="output"
-                      class="language-regex overflow-hidden whitespace-break-spaces !border-0 !rounded-xl !shadow-none !bg-zinc-950/50 !p-3 w-full !pb-6">Output...</code>
+                      class="language-regex overflow-hidden whitespace-break-spaces !border-0 !rounded-xl !shadow-none !bg-zinc-950/50 !p-3 w-full !pb-9 ">Output...</code>
             </div>
             <div class="flex flex-col gap-5 py-5 px-3 rounded-xl bg-zinc-950/50">
                 <h2>Test Regex</h2>
+                <p>Copy the generated regex above and paste it in the "Regular Expression" field below.</p>
                 <hr class="border-white/10">
-                <iframe loading="eager" src="https://regex101.labs.gravwell.io/" height="325px" class="max-w-[600px]" sandbox="allow-scripts allow-same-origin"/>
-                <span class="text-neutral-400 text-xs">Credit to <a class="text-sky-500" href="https://regex101.com" target="_blank" rel="noreferrer noopener">Regex101</a></span>
+                <iframe loading="eager" src="https://regex101.labs.gravwell.io?regex=test" height="325px" class="max-w-[800px]" sandbox="allow-scripts allow-same-origin"/>
+                <span class="text-neutral-400 text-xs">Powered by <a class="text-sky-500" href="https://regex101.com" target="_blank" rel="noreferrer noopener">Regex101</a></span>
             </div>
         </div>
     </section>
     <script>
-       import '../scripts/automod-regex/generator.js'
+       import '../../../scripts/automod-regex/generator.js'
     </script>
 </MainLayout>

@@ -1,6 +1,5 @@
 import React from "react";
-import { ShaderGradientCanvas, ShaderGradient } from "@shadergradient/react";
-import * as reactSpring from "@react-spring/three";
+import { ShaderGradient, ShaderGradientCanvas } from "@shadergradient/react";
 
 function Gradient({ className = "" }) {
   return (
