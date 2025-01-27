@@ -13,6 +13,7 @@ const inputCount = document.querySelector("#input-count");
 const output = document.querySelector("#output");
 const copy = document.querySelector("#copy");
 const share = document.querySelector("#share");
+const regex101 = document.querySelector("iframe#regex101");
 
 let shareHash = "";
 
@@ -53,6 +54,8 @@ function getData() {
     },
   };
 }
+
+// regex101.onload = () => input.focus();
 
 const debounce = (callback, wait) => {
   let timeoutId = null;
@@ -273,7 +276,8 @@ input.oninput = debounce(() => {
   Prism.highlightElement(output);
 
   updateIdentifier();
-}, 300);
+  window.location.hash = shareHash;
+}, 500);
 
 Object.entries(settings).forEach(([_, element]) => {
   element.oninput = debounce(() => {
@@ -281,7 +285,8 @@ Object.entries(settings).forEach(([_, element]) => {
     Prism.highlightElement(output);
 
     updateIdentifier();
-  }, 100);
+    window.location.hash = shareHash;
+  }, 300);
 });
 
 function restoreFromHash() {

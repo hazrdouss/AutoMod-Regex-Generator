@@ -115,15 +115,16 @@ import Breadcrumbs from "../../../layouts/Breadcrumbs.astro";
                       class="language-regex overflow-hidden whitespace-break-spaces !border-0 !rounded-xl !shadow-none !bg-zinc-950/50 !p-3 w-full !pb-9 ">Output...</code>
             </div>
             <div class="flex flex-col gap-5 py-5 px-3 rounded-xl bg-zinc-950/50">
-                <h2>Test Regex</h2>
+                <h2>Test Regex (Coming Soon)</h2>
                 <p>Copy the generated regex above and paste it in the "Regular Expression" field below.</p>
                 <hr class="border-white/10">
-                <iframe loading="eager" src="https://regex101.labs.gravwell.io?regex=test" height="325px" class="max-w-[800px]" sandbox="allow-scripts allow-same-origin"/>
-                <span class="text-neutral-400 text-xs">Powered by <a class="text-sky-500" href="https://regex101.com" target="_blank" rel="noreferrer noopener">Regex101</a></span>
+                <!--<iframe id="regex101" loading="eager" src="https://regexr.com/3bbv1" height="325px" class="max-w-[800px]" sandbox="allow-scripts allow-same-origin"/>-->
+                <!--<span class="text-neutral-400 text-xs">Powered by <a class="text-sky-500" href="https://regex101.com" target="_blank" rel="noreferrer noopener">Regex101</a></span>-->
             </div>
         </div>
     </section>
     <script>
        import '../../../scripts/automod-regex/generator.js'
+       import '../../../scripts/automod-regex/testEngine.js'
     </script>
 </MainLayout>
