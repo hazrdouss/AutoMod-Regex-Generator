@@ -3,7 +3,7 @@ import {
   letReplaceMap,
   numReplaceMap,
   symReplaceMap,
-  uniReplaceMap,
+  uniReplaceMaps,
 } from "./replaceMaps.js";
 import Prism from "prismjs";
 import escape from "validator/lib/escape";
@@ -14,8 +14,23 @@ const inputCount = document.querySelector("#input-count");
 const output = document.querySelector("#output");
 const copy = document.querySelector("#copy");
 const share = document.querySelector("#share");
+const maps = document.querySelector("#maps")
 // const regex101 = document.querySelector("iframe#regex101");
+maps.oninput = debounce(() => {
+  const exp = buildExpression();
 
+  output.innerHTML = exp ? exp : "Output...";
+  inputCount.innerText = input.value.length;
+  Prism.highlightElement(output);
+
+  updateIdentifier();
+  window.location.hash = shareHash;
+
+  const event = new CustomEvent("updatedRegex", {
+    detail: { regex: buildExpression(true) },
+  });
+  document.dispatchEvent(event);
+}, 300)
 let shareHash = "";
 
 let exp = "";
@@ -34,6 +49,7 @@ let settings = {
 
   partialMatches: document.querySelector("input[name='partial-matches']"),
   mergeDuplicates: document.querySelector("input[name='merge-duplicates']"),
+  characterMap: maps
 };
 
 function getData() {
@@ -53,6 +69,7 @@ function getData() {
 
       partialMatches: settings.partialMatches.checked,
       mergeDuplicates: settings.mergeDuplicates.checked,
+      characterMap: settings.characterMap.value == "new"
     },
   };
 }
@@ -61,7 +78,7 @@ function buildExpression(raw) {
   let content = getData().input;
   let expression = "";
   let lastChar = "";
-
+  let uniReplaceMap  = uniReplaceMaps[maps.value]
   for (let i = 0; i < content.length; i++) {
     let char = regEscape(content[i]);
     let group = "";
@@ -224,6 +241,7 @@ function updateIdentifier() {
   settings += data.settings.letterSpam << 8;
   settings += data.settings.partialMatches << 9;
   settings += data.settings.mergeDuplicates << 10;
+  settings += data.settings.characterMap << 11
   const marshalledValue = JSON.stringify({
     input: data.input,
     settings: settings,
@@ -293,6 +311,7 @@ function restoreFromHash() {
       settings.letterSpam.checked = data.settings & 256;
       settings.partialMatches.checked = data.settings & 512;
       settings.mergeDuplicates.checked = data.settings & 1024;
+      maps.value = data.settings & 2048 ? "new" : "old";
       output.innerHTML = buildExpression();
     }
 

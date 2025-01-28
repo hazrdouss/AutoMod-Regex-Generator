@@ -99,6 +99,22 @@ import Breadcrumbs from "../../../layouts/Breadcrumbs.astro";
                         </label>
                     </div>
                 </fieldset>
+                <fieldset>
+                    <legend class="option-section--title">
+                        <span>Unicode Map <i class='icon-circle-help' title="Changes the way unicode characters are matched"></i></span>
+                        <span>Preserves word structure and boundaries</span>
+                    </legend>
+                    <div class="option-section--options">
+
+
+                            <select id="maps" class="border text-sm rounded-lg w-full p-2.5 bg-zinc-800 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500">
+                                <option selected value="old">Default</option>
+                                <option value="new">Extended</option>
+                            </select>
+
+
+                    </div>
+                </fieldset>
             </form>
             <label class="w-full form-control">
                 <span class="label">
