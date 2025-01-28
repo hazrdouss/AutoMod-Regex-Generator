@@ -8,15 +8,17 @@ import {
 import Prism from "prismjs";
 import escape from "validator/lib/escape";
 import "prismjs/components/prism-regex";
+import { debounce, isVowel, regEscape, toast } from "../utils";
 
 const inputCount = document.querySelector("#input-count");
 const output = document.querySelector("#output");
 const copy = document.querySelector("#copy");
 const share = document.querySelector("#share");
-const regex101 = document.querySelector("iframe#regex101");
+// const regex101 = document.querySelector("iframe#regex101");
 
 let shareHash = "";
 
+let exp = "";
 let input = document.querySelector("#input");
 let settings = {
   vowellessVariants: document.querySelector("input[name='vowelless-variants']"),
@@ -55,28 +57,7 @@ function getData() {
   };
 }
 
-// regex101.onload = () => input.focus();
-
-const debounce = (callback, wait) => {
-  let timeoutId = null;
-  return (...args) => {
-    window.clearTimeout(timeoutId);
-    timeoutId = window.setTimeout(() => {
-      callback(...args);
-    }, wait);
-  };
-};
-
-function isVowel(letter) {
-  const vowels = ["a", "e", "i", "o", "u"];
-  return vowels.includes(letter.toLowerCase());
-}
-
-function regEscape(string) {
-  return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-}
-
-function buildExpression() {
+function buildExpression(raw) {
   let content = getData().input;
   let expression = "";
   let lastChar = "";
@@ -192,60 +173,40 @@ function buildExpression() {
     }
   }
 
-  return escape(expression);
-}
-
-function showToast(text, type) {
-  const toast = document.createElement("div");
-  toast.classList.add("toast", "hide", "toast-start");
-  toast.innerHTML = `
-    <div class="px-5 py-2 rounded-xl alert alert-${type}">
-      <span class="">${text}</span>
-    </div>
-  `;
-
-  // Append the toast to the body
-  document.body.appendChild(toast);
-
-  // After a short delay, remove the toast
-  setTimeout(() => {
-    toast.remove();
-  }, 3000); // Toast will be removed after 3 seconds
+  if (raw) {
+    return expression;
+  } else {
+    return escape(expression);
+  }
 }
 
 copy.addEventListener("click", () => {
   navigator.clipboard
     .writeText(output.innerText)
     .then(() => {
-      showToast("Copied", "success");
+      toast("Copied", "success");
     })
     .catch((err) => {
       console.log("unable to copy", err);
       window.getSelection().selectAllChildren(output);
-      showToast(
-        "Cant copy cuz of stupid restrictions (press CTRL + C)",
-        "error",
-      );
+      toast("Cant copy cuz of stupid restrictions (press CTRL + C)", "error");
     });
 });
 
 share.addEventListener("click", () => {
   if (shareHash) {
     navigator.clipboard
-      .writeText(`https://hazrd.pages.dev/automod-regex/#${shareHash}`)
+      .writeText(window.location + shareHash)
       .then(() => {
-        showToast("Copied", "success");
+        toast("Copied", "success");
       })
       .catch((err) => {
         console.log("unable to copy", err);
         window.getSelection().selectAllChildren(output);
-        showToast(
-          "Cant copy cuz of stupid restrictions (press CTRL + C)",
-          "error",
-        );
+        toast("Cant copy cuz of stupid restrictions (press CTRL + C)", "error");
       });
   } else {
-    showToast("Nothing to copy right now!", "error");
+    toast("Nothing to copy right now!", "error");
   }
 });
 
@@ -271,21 +232,35 @@ function updateIdentifier() {
 }
 
 input.oninput = debounce(() => {
-  output.innerHTML = buildExpression() ? buildExpression() : "Output...";
+  const exp = buildExpression();
+
+  output.innerHTML = exp ? exp : "Output...";
   inputCount.innerText = input.value.length;
   Prism.highlightElement(output);
 
   updateIdentifier();
   window.location.hash = shareHash;
-}, 500);
+
+  const event = new CustomEvent("updatedRegex", {
+    detail: { regex: buildExpression(true) },
+  });
+  document.dispatchEvent(event);
+}, 300);
 
 Object.entries(settings).forEach(([_, element]) => {
   element.oninput = debounce(() => {
-    output.innerHTML = buildExpression() ? buildExpression() : "Output...";
+    const exp = buildExpression();
+
+    output.innerHTML = exp ? exp : "Output...";
     Prism.highlightElement(output);
 
     updateIdentifier();
     window.location.hash = shareHash;
+
+    const event = new CustomEvent("updatedRegex", {
+      detail: { regex: buildExpression(true) },
+    });
+    document.dispatchEvent(event);
   }, 300);
 });
 
@@ -320,8 +295,19 @@ function restoreFromHash() {
       settings.mergeDuplicates.checked = data.settings & 1024;
       output.innerHTML = buildExpression();
     }
+
+    Prism.highlightElement(output);
+
+    const event = new CustomEvent("updatedRegex", {
+      detail: { regex: buildExpression(true) },
+    });
+    document.dispatchEvent(event);
   }
 }
 
-window.onload = () => restoreFromHash();
-window.onhashchange = () => restoreFromHash();
+window.onload = () => {
+  restoreFromHash();
+  input.focus();
+};
+
+export default exp;

@@ -5,7 +5,7 @@ import Breadcrumbs from "../../../layouts/Breadcrumbs.astro";
 ---
 
 <MainLayout classList="test" title="AutoMod Regex Generator">
-    <link rel="preload" href="https://regex101.labs.gravwell.io/" as="document">
+    <!--<link rel="preload" href="https://regex101.labs.gravwell.io/" as="document">-->
     <section class="!w-full">
         <div class="flex flex-col text-sm w-full gap-5
             heir-h2:text-3xl
@@ -110,21 +110,41 @@ import Breadcrumbs from "../../../layouts/Breadcrumbs.astro";
             </label>
             <div class="flex gap-5 relative">
                 <button id="copy" class="btn btn-success !rounded-xl !p-3">Copy</button>
-                <button id="share" class="btn btn-info rounded-x rounded-tl-lg rounded-br-lg rounded-bl-none !p-1.5 min-h-0 !h-[initial] absolute right-0 bottom-0 rounded-tr-none">Share</button>
+                <button id="share" class="btn btn-primary rounded-x rounded-tl-lg rounded-br-lg rounded-bl-none !p-1.5 min-h-0 !h-[initial] absolute right-0 bottom-0 rounded-tr-none">Share</button>
                 <code id="output"
                       class="language-regex overflow-hidden whitespace-break-spaces !border-0 !rounded-xl !shadow-none !bg-zinc-950/50 !p-3 w-full !pb-9 ">Output...</code>
             </div>
             <div class="flex flex-col gap-5 py-5 px-3 rounded-xl bg-zinc-950/50">
-                <h2>Test Regex (Coming Soon)</h2>
-                <p>Copy the generated regex above and paste it in the "Regular Expression" field below.</p>
+                <h2>Test Regex</h2>
+                <p>Simply type in a sentence or some words and if a match is found for your regex, it will get highlighted</p>
                 <hr class="border-white/10">
-                <!--<iframe id="regex101" loading="eager" src="https://regexr.com/3bbv1" height="325px" class="max-w-[800px]" sandbox="allow-scripts allow-same-origin"/>-->
-                <!--<span class="text-neutral-400 text-xs">Powered by <a class="text-sky-500" href="https://regex101.com" target="_blank" rel="noreferrer noopener">Regex101</a></span>-->
+                <div>
+                    <label for="tester-input" class="label">
+                        <span class="label-text"><span id="tester-count">0</span> Matches</span>
+                    </label>
+                    <div
+                            id="editorContainer"
+                            class="textarea relative w-full h-40 resize-y font-mono overflow-y-hidden bg-zinc-900"
+                    >
+                        <!-- Highlighted content -->
+                        <div
+                                id="tester-highlight"
+                                class="textarea absolute top-0 left-0 w-full h-full p-2 bg-transparent text-transparent pointer-events-none whitespace-pre-wrap font-mono"
+                        ></div>
+
+                        <!-- Editable textarea -->
+                        <textarea
+                                id="tester-input"
+                                class="textarea textarea-bordered absolute top-0 left-0 w-full h-full p-2 !bg-transparent text-white caret-white resize-none font-mono"
+                                spellcheck="false"
+                        ></textarea>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
     <script>
        import '../../../scripts/automod-regex/generator.js'
-       import '../../../scripts/automod-regex/testEngine.js'
+       import '../../../scripts/automod-regex/regexEngine'
     </script>
 </MainLayout>

@@ -16,5 +16,9 @@ export default {
       // => @media (max-width: 639px) { ... }
     },
   },
-  plugins: [require("daisyui"), require("tailwind-children")],
+  plugins: [
+    require("daisyui"),
+    require("tailwind-children"),
+    require("tailwindcss-motion"),
+  ],
 };
