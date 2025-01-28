@@ -70,7 +70,7 @@ function buildExpression(raw) {
     // Merge Duplicates
     if (getData().settings.mergeDuplicates && char === lastChar) {
       if (!getData().settings.partialMatches && i === content.length - 1) {
-        expression += "(\\z|\\s)";
+        expression += "\\b";
       }
       continue;
     }
@@ -85,7 +85,7 @@ function buildExpression(raw) {
 
     // Partial Matches
     if (!getData().settings.partialMatches && i === 0) {
-      expression += "(\\A|\\s)";
+      expression += "\\b";
     }
     // Case Insensitive
     if (getData().settings.caseInsensitive && i === 0) {
@@ -169,7 +169,7 @@ function buildExpression(raw) {
     }
 
     if (!getData().settings.partialMatches && i === content.length - 1) {
-      expression += "(\\z|\\s)";
+      expression += "\\b";
     }
   }
 
