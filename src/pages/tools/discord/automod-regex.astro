@@ -18,7 +18,7 @@ import Breadcrumbs from "../../../layouts/Breadcrumbs.astro";
                 [&_label]:min-w-fit
 
                 [&_.option-section--options]:grid
-                [&_.option-section--options]:grid-cols-[repeat(auto-fill,minmax(145px,1fr))]
+                [&_.option-section--options]:grid-cols-[repeat(auto-fill,minmax(142px,1fr))]
                 [&_.option-section--options]:gap-y-3
                 [&_.option-section--options]:gap-x-2
 
@@ -48,22 +48,22 @@ import Breadcrumbs from "../../../layouts/Breadcrumbs.astro";
                         <span>Prevents character replacements with lookalikes</span>
                     </legend>
                     <div class="option-section--options">
-                        <label title="hell, hllo, etc">Vowelless Variants
+                        <label>Vowelless Variants
                             <input type="checkbox" name="vowelless-variants" class="checkbox checkbox-sm"/>
                         </label>
-                        <label title="h3ll0, he110, etc">Number Variants
+                        <label>Number Variants
                             <input type="checkbox" name="number-variants" class="checkbox checkbox-sm"/>
                         </label>
-                        <label title="hallo, hllo, etc">Letter Variants
+                        <label>Variants
                             <input type="checkbox" name="letter-variants" class="checkbox checkbox-sm"/>
                         </label>
-                        <label title="hell, hllo, etc">Symbol Variants
+                        <label>Symbol Variants
                             <input type="checkbox" name="symbol-variants" class="checkbox checkbox-sm"/>
                         </label>
-                        <label title="hell, hllo, etc">Emoji Variants
+                        <label>Emoji Variants
                             <input type="checkbox" name="emoji-variants" class="checkbox checkbox-sm"/>
                         </label>
-                        <label title="hell, hllo, etc">Unicode Variants
+                        <label>Unicode Variants
                             <input type="checkbox" name="unicode-variants" class="checkbox checkbox-sm"/>
                         </label>
                     </div>
@@ -74,7 +74,7 @@ import Breadcrumbs from "../../../layouts/Breadcrumbs.astro";
                         <span>Controls text spacing, casing, and repetition</span>
                     </legend>
                     <div class="option-section--options">
-                        <label title="HeLLO, hElLo, etc">Case Insensitive
+                        <label>Case Insensitive
                             <input type="checkbox" name="caseInsensitive" class="checkbox checkbox-sm"/>
                         </label>
                         <label>Whitespace
@@ -91,7 +91,7 @@ import Breadcrumbs from "../../../layouts/Breadcrumbs.astro";
                         <span>Preserves word structure and boundaries</span>
                     </legend>
                     <div class="option-section--options">
-                        <label title="HeLLO, hElLo, etc">Partial Matches
+                        <label>Partial Matches
                             <input type="checkbox" name="partial-matches" class="checkbox checkbox-sm"/>
                         </label>
                         <label>Merge Duplicates
@@ -100,7 +100,7 @@ import Breadcrumbs from "../../../layouts/Breadcrumbs.astro";
                     </div>
                 </fieldset>
             </form>
-            <label class="form-control w-full">
+            <label class="w-full form-control">
                 <span class="label">
                     <span class="label-text">Match phrase</span>
                     <span class="label-text-alt"><span id="input-count">0</span> / 200</span>
@@ -108,13 +108,13 @@ import Breadcrumbs from "../../../layouts/Breadcrumbs.astro";
                 <input id="input" class="input text rounded-xl border-1 !p-3 bg-zinc-950/50" type="text"
                        name="input-text" placeholder="type something..." maxlength="200">
             </label>
-            <div class="flex gap-5 relative">
+            <div class="relative flex gap-5">
                 <button id="copy" class="btn btn-success !rounded-xl !p-3">Copy</button>
                 <button id="share" class="btn btn-primary rounded-x rounded-tl-lg rounded-br-lg rounded-bl-none !p-1.5 min-h-0 !h-[initial] absolute right-0 bottom-0 rounded-tr-none">Share</button>
                 <code id="output"
                       class="language-regex overflow-hidden whitespace-break-spaces !border-0 !rounded-xl !shadow-none !bg-zinc-950/50 !p-3 w-full !pb-9 ">Output...</code>
             </div>
-            <div class="flex flex-col gap-5 py-5 px-3 rounded-xl bg-zinc-950/50">
+            <div class="flex flex-col gap-5 rounded-xl px-3 py-5 bg-zinc-950/50">
                 <h2>Test Regex</h2>
                 <p>Simply type in a sentence or some words and if a match is found for your regex, it will get highlighted</p>
                 <hr class="border-white/10">
@@ -124,12 +124,12 @@ import Breadcrumbs from "../../../layouts/Breadcrumbs.astro";
                     </label>
                     <div
                             id="editorContainer"
-                            class="textarea relative w-full h-40 resize-y font-mono overflow-y-hidden bg-zinc-900"
+                            class="relative h-40 w-full resize-y overflow-y-hidden bg-zinc-900 font-mono textarea"
                     >
                         <!-- Highlighted content -->
                         <div
                                 id="tester-highlight"
-                                class="textarea absolute top-0 left-0 w-full h-full p-2 bg-transparent text-transparent pointer-events-none whitespace-pre-wrap font-mono"
+                                class="pointer-events-none absolute top-0 left-0 h-full w-full whitespace-pre-wrap bg-transparent p-2 font-mono text-transparent textarea"
                         ></div>
 
                         <!-- Editable textarea -->

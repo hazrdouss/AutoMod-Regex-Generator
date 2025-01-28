@@ -20,7 +20,7 @@
     @apply flex flex-col justify-center items-center mx-auto min-h-svh container px-28 xl:px-24 lg:px-20 md:px-12 sm:px-4;
   }
 
-  section:first-child {
+  section:first-of-type {
     @apply pt-24;
   }
 
