@@ -28,9 +28,10 @@ import Breadcrumbs from "../../../layouts/Breadcrumbs.astro";
                 [&_.option-section--title_span:first-child]:flex
                 [&_.option-section--title_span:first-child]:items-center
                 [&_.option-section--title_span:first-child]:gap-[1ch]
+                [&_.option-section--title_span:first-child]:font-medium
 
                 [&_.option-section--title_span:last-child]:hidden
-                [&_.option-section--title_span:last-child]:text-xs
+                [&_.option-section--title_span:last-child]:text-sm
                 [&_.option-section--title_span:last-child]:text-zinc-600
                 md:[&_.option-section--title_span:last-child]:block
 
@@ -54,7 +55,7 @@ import Breadcrumbs from "../../../layouts/Breadcrumbs.astro";
                         <label>Number Variants
                             <input type="checkbox" name="number-variants" class="checkbox checkbox-sm"/>
                         </label>
-                        <label>Variants
+                        <label>Letter Variants
                             <input type="checkbox" name="letter-variants" class="checkbox checkbox-sm"/>
                         </label>
                         <label>Symbol Variants
@@ -99,16 +100,20 @@ import Breadcrumbs from "../../../layouts/Breadcrumbs.astro";
                         </label>
                     </div>
                 </fieldset>
-                <fieldset>
+                <br>
+                <fieldset class="[&_div_label]:!flex-col [&_div_label_span]:!text-zinc-500 [&_div_label_span]:!text-xs">
                     <legend class="option-section--title">
-                        <span>Unicode Map <i class='icon-circle-help' title="Changes the way unicode characters are matched"></i></span>
-                        <span>Preserves word structure and boundaries</span>
+                        <span>Misc Settings <i class='icon-circle-help' title="Miscellaneous settings related to the way the generator functions"></i></span>
+                        <span>Miscellaneous settings related to the way the generator functions</span>
                     </legend>
                     <div class="option-section--options">
-                        <select id="maps" class="select select-bordered bg-zinc-950 text-sm rounded-lg w-full p-2.5 ">
-                            <option selected value="old">Default</option>
-                            <option value="new">Extended</option>
-                        </select>
+                        <label>
+                            <span>Unicode Map:</span>
+                            <select id="maps" class="w-full text-xs select select-bordered select-sm bg-zinc-950">
+                                <option selected value="old">Default</option>
+                                <option value="new">Extended (Buggy)</option>
+                            </select>
+                        </label>
                     </div>
                 </fieldset>
             </form>
@@ -126,34 +131,32 @@ import Breadcrumbs from "../../../layouts/Breadcrumbs.astro";
                 <code id="output"
                       class="language-regex overflow-hidden whitespace-break-spaces !border-0 !rounded-xl !shadow-none !bg-zinc-950/50 !p-3 w-full !pb-9 ">Output...</code>
             </div>
-            <div class="flex flex-col gap-5 rounded-xl px-3 py-5 bg-zinc-950/50">
+            <div class="flex flex-col gap-5 rounded-xl p-3 bg-zinc-950/50">
                 <h2>Test Regex</h2>
                 <p>Simply type in a sentence or some words and if a match is found for your regex, it will get highlighted</p>
                 <hr class="border-white/10">
                 <div>
                     <label for="tester-input" class="label">
-                        <span class="label-text"><span id="tester-count">0</span> Matches</span>
+                        <span class="label-text"><span id="tester-count" class="font-medium">0</span> Matches</span>
                     </label>
                     <div
-                            class="relative min-h-40 h-full w-full bg-zinc-900 font-mono"
+                            class="textarea textarea-ghost p-0 relative min-h-fit w-full bg-zinc-950 font-mono"
                     >
                         <!-- Highlighted content -->
                         <pre
                                 id="tester-highlight"
-                                class="pointer-events-none absolute top-0 overflow-y-scroll left-0 h-full w-full whitespace-pre-wrap bg-transparent p-2 font-mono text-transparent textarea"
+                                class="pointer-events-none absolute top-0 left-0 w-full whitespace-pre-wrap bg-transparent p-2 font-mono text-transparent min-h-40 textarea"
                         ></pre>
 
                         <!-- Editable textarea -->
-                        <textarea
+                        <div
+                                contenteditable="true"
                                 id="tester-input"
-                                class="textarea textarea-bordered absolute top-0 left-0 w-full overflow-y-visible h-full p-2 !bg-transparent text-white caret-white resize-none font-mono"
+                                class="textarea textarea-bordered top-0 left-0 w-full min-h-40 p-2 !bg-transparent text-white caret-white resize-none font-mono"
                                 spellcheck="false"
-                        ></textarea>
+                        ></div>
                     </div>
                 </div>
-            </div>
-            <div id="editorContainer">
-                <textarea id="inputField"></textarea>
             </div>
         </div>
     </section>

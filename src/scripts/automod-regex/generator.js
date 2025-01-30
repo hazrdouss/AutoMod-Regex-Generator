@@ -14,7 +14,7 @@ const inputCount = document.querySelector("#input-count");
 const output = document.querySelector("#output");
 const copy = document.querySelector("#copy");
 const share = document.querySelector("#share");
-const maps = document.querySelector("#maps")
+const maps = document.querySelector("#maps");
 // const regex101 = document.querySelector("iframe#regex101");
 maps.oninput = debounce(() => {
   const exp = buildExpression();
@@ -30,7 +30,7 @@ maps.oninput = debounce(() => {
     detail: { regex: buildExpression(true) },
   });
   document.dispatchEvent(event);
-}, 300)
+}, 300);
 let shareHash = "";
 
 let exp = "";
@@ -49,7 +49,7 @@ let settings = {
 
   partialMatches: document.querySelector("input[name='partial-matches']"),
   mergeDuplicates: document.querySelector("input[name='merge-duplicates']"),
-  characterMap: maps
+  characterMap: maps,
 };
 
 function getData() {
@@ -69,7 +69,7 @@ function getData() {
 
       partialMatches: settings.partialMatches.checked,
       mergeDuplicates: settings.mergeDuplicates.checked,
-      characterMap: settings.characterMap.value == "new"
+      characterMap: settings.characterMap.value == "new",
     },
   };
 }
@@ -78,7 +78,8 @@ function buildExpression(raw) {
   let content = getData().input;
   let expression = "";
   let lastChar = "";
-  let uniReplaceMap  = uniReplaceMaps[maps.value]
+  let uniReplaceMap = uniReplaceMaps[maps.value];
+
   for (let i = 0; i < content.length; i++) {
     let char = regEscape(content[i]);
     let group = "";
@@ -241,7 +242,7 @@ function updateIdentifier() {
   settings += data.settings.letterSpam << 8;
   settings += data.settings.partialMatches << 9;
   settings += data.settings.mergeDuplicates << 10;
-  settings += data.settings.characterMap << 11
+  settings += data.settings.characterMap << 11;
   const marshalledValue = JSON.stringify({
     input: data.input,
     settings: settings,
