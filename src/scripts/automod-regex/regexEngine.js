@@ -27,7 +27,8 @@ document.addEventListener("updatedRegex", (data) => {
 
 function highLight() {
   if (expression) {
-    inputHighlight.textContent = input.value;
+    inputHighlight.innerHTML = input.innerText;
+
     const text = input.value;
 
     const highlightedText = expReplace(
@@ -46,6 +47,6 @@ input.oninput = debounce(() => {
 }, 100);
 
 input.addEventListener("scroll", () => {
+  console.log("scroll");
   inputHighlight.scrollTop = input.scrollTop;
-  inputHighlight.scrollLeft = input.scrollLeft;
 });

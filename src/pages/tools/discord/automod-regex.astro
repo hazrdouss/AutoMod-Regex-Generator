@@ -105,14 +105,10 @@ import Breadcrumbs from "../../../layouts/Breadcrumbs.astro";
                         <span>Preserves word structure and boundaries</span>
                     </legend>
                     <div class="option-section--options">
-
-
-                            <select id="maps" class="border text-sm rounded-lg w-full p-2.5 bg-zinc-800 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500">
-                                <option selected value="old">Default</option>
-                                <option value="new">Extended</option>
-                            </select>
-
-
+                        <select id="maps" class="select select-bordered bg-zinc-950 text-sm rounded-lg w-full p-2.5 ">
+                            <option selected value="old">Default</option>
+                            <option value="new">Extended</option>
+                        </select>
                     </div>
                 </fieldset>
             </form>
@@ -139,23 +135,25 @@ import Breadcrumbs from "../../../layouts/Breadcrumbs.astro";
                         <span class="label-text"><span id="tester-count">0</span> Matches</span>
                     </label>
                     <div
-                            id="editorContainer"
-                            class="relative h-40 w-full resize-y overflow-y-hidden bg-zinc-900 font-mono textarea"
+                            class="relative min-h-40 h-full w-full bg-zinc-900 font-mono"
                     >
                         <!-- Highlighted content -->
-                        <div
+                        <pre
                                 id="tester-highlight"
-                                class="pointer-events-none absolute top-0 left-0 h-full w-full whitespace-pre-wrap bg-transparent p-2 font-mono text-transparent textarea"
-                        ></div>
+                                class="pointer-events-none absolute top-0 overflow-y-scroll left-0 h-full w-full whitespace-pre-wrap bg-transparent p-2 font-mono text-transparent textarea"
+                        ></pre>
 
                         <!-- Editable textarea -->
                         <textarea
                                 id="tester-input"
-                                class="textarea textarea-bordered absolute top-0 left-0 w-full h-full p-2 !bg-transparent text-white caret-white resize-none font-mono"
+                                class="textarea textarea-bordered absolute top-0 left-0 w-full overflow-y-visible h-full p-2 !bg-transparent text-white caret-white resize-none font-mono"
                                 spellcheck="false"
                         ></textarea>
                     </div>
                 </div>
+            </div>
+            <div id="editorContainer">
+                <textarea id="inputField"></textarea>
             </div>
         </div>
     </section>
