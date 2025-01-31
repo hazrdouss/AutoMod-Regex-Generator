@@ -1,5 +1,5 @@
 import { RE2JS } from "re2js";
-import { debounce } from "../utils";
+import { debounce } from "../../utils";
 import unescape from "validator/lib/unescape";
 import escape from "validator/lib/escape";
 
@@ -32,10 +32,7 @@ function highLight() {
   while (matchString.find()) {
     replaceCount++;
     highlightedText += escape(text.substring(lastIndex, matchString.start()));
-    highlightedText +=
-      `<span class="[&:nth-child(odd)]:bg-blue-500 [&:nth-child(even)]:bg-blue-600 [&:nth-child(odd)]:opacity-50 [&:nth-child(even)]:opacity-35 motion-preset-fade-sm">` +
-      escape(matchString.group()) +
-      `</span>`;
+    highlightedText += `<span class="h-min [&:nth-child(odd)]:bg-blue-500 [&:nth-child(even)]:bg-blue-600 [&:nth-child(odd)]:opacity-50 [&:nth-child(even)]:opacity-35 motion-preset-fade-sm">${escape(matchString.group())}</span>`;
     lastIndex = matchString.end();
   }
 

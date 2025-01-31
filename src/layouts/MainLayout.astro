@@ -7,13 +7,16 @@ const {bodyClasses, mainClasses, title} = Astro.props;
 
 <html data-theme="business" lang="en">
 <Head {title}/>
-<body class="selection:bg-zinc-200/20 relative bg-zinc-800" class:list={[bodyClasses]}>
+<body class="selection:bg-zinc-200/20 relative bg-zinc-900" class:list={[bodyClasses]}>
 <header class="fixed top-0 right-0 left-0 h-16 z-10">
     <NavBar/>
 </header>
 <main class="" class:list={mainClasses}>
     <slot/>
 </main>
-<script src="prismjs/prism.js"></script>
+<script>
+   import "prismjs/prism"
+   import "../scripts/index"
+</script>
 </body>
 </html>

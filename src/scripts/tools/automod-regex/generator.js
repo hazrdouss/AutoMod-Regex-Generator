@@ -8,7 +8,7 @@ import {
 import Prism from "prismjs";
 import escape from "validator/lib/escape";
 import "prismjs/components/prism-regex";
-import { debounce, isVowel, regEscape, toast } from "../utils";
+import { debounce, isVowel, regEscape, toast } from "../../utils";
 
 const inputCount = document.querySelector("#input-count");
 const output = document.querySelector("#output");

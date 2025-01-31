@@ -19,15 +19,18 @@ export const regEscape = (string) => {
 
 export const toast = (text, type) => {
   const toast = document.createElement("div");
+  const toastType = `alert-${type}`;
   toast.classList.add("toast", "hide", "toast-start");
   toast.innerHTML = `
-    <div class="px-5 py-2 rounded-xl alert alert-${type}">
+    <div class="px-5 py-2 rounded-xl alert">
       <span class="">${text}</span>
     </div>
   `;
 
   // Append the toast to the body
   document.body.appendChild(toast);
+
+  toast.querySelector("div").classList.add(toastType);
 
   // After a short delay, remove the toast
   setTimeout(() => {
