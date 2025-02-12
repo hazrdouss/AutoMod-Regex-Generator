@@ -1,7 +1,7 @@
 ---
 
 ---
-<nav class=" flex h-full! px-2 py-3 w-full bg-zinc-950/0 backdrop-blur-lg">
+<nav class=" flex h-full! px-2 py-3 w-full bg-zinc-950/0 transition-colors duration-500 backdrop-blur-lg">
    <div class="">
       <a href="/" class="h-full block aspect-square"><img class="h-full" src="/images/logo.webp" alt="logo of website"></a>
    </div>
@@ -19,37 +19,15 @@
    <!--    </ul>-->
    <!--</div>-->
 </nav>
-<div class="drawer">
-   <input id="my-drawer" type="checkbox" class="drawer-toggle" />
-   <div class="drawer-content">
-      <!-- Page content here -->
-      <label for="my-drawer" class="btn btn-primary drawer-button">Open drawer</label>
-   </div>
-   <div class="drawer-side">
-      <label for="my-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
-      <ul class="menu bg-base-200 text-base-content min-h-full w-80 p-4">
-         <!-- Sidebar content here -->
-         <li><a>Sidebar Item 1</a></li>
-         <li><a>Sidebar Item 2</a></li>
-      </ul>
-   </div>
-</div>
 <slot name="breadcrumbs" />
 <script>
-   import gsap from "gsap";
-   import ScrollTrigger from "gsap/scrollTrigger";
+   const navbar = document.querySelector("nav");
 
-   document.addEventListener("DOMContentLoaded", () => {
-      gsap.registerPlugin(ScrollTrigger);
-
-      gsap.to("nav", {
-         backgroundColor: "hsla(255, 0, 0%, 0.8)",
-         duration: 0.5,
-         scrollTrigger: {
-            trigger: "body",
-            start: "top+=5 top",
-            toggleActions: "play none none reverse"
-         }
-      });
+   window.addEventListener("scroll", () => {
+      if (window.scrollY > 10) {
+         navbar.style.background = "rgba(0, 0, 0, 1)"; // Solid black
+      } else {
+         navbar.style.background = "rgba(0, 0, 0, 0)"; // Transparent
+      }
    });
 </script>
