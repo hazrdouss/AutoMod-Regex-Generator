@@ -1,22 +1,55 @@
 ---
 
 ---
-<nav class="navbar h-full px-5 w-full bg-zinc-950/85 shadow-2xl backdrop-blur-md">
-    <div class="flex-1">
-        <a href="/" class="h-12 aspect-square p-0"><img class="h-full" src="/images/logo.webp" alt="logo of website"></a>
-    </div>
-    <!--<div class="flex-none">-->
-    <!--    <ul class="menu menu-horizontal px-1">-->
-    <!--        <li>-->
-    <!--            <details>-->
-    <!--                <summary>Tools</summary>-->
-    <!--                <ul class="bg-zinc-900 rounded-t-none p-2">-->
-    <!--                    <li><a href="/automod-regex">AutoMod Regex Generator</a></li>-->
-    <!--                    &lt;!&ndash;<li><a>Link 2</a></li>&ndash;&gt;-->
-    <!--                </ul>-->
-    <!--            </details>-->
-    <!--        </li>-->
-    <!--    </ul>-->
-    <!--</div>-->
+<nav class=" flex h-full! px-2 py-3 w-full bg-zinc-950/0 backdrop-blur-lg">
+   <div class="">
+      <a href="/" class="h-full block aspect-square"><img class="h-full" src="/images/logo.webp" alt="logo of website"></a>
+   </div>
+   <!--<div class="flex-none">-->
+   <!--    <ul class="menu menu-horizontal px-1">-->
+   <!--        <li>-->
+   <!--            <details>-->
+   <!--                <summary>Tools</summary>-->
+   <!--                <ul class="bg-zinc-900 rounded-t-none p-2">-->
+   <!--                    <li><a href="/automod-regex">AutoMod Regex Generator</a></li>-->
+   <!--                    &lt;!&ndash;<li><a>Link 2</a></li>&ndash;&gt;-->
+   <!--                </ul>-->
+   <!--            </details>-->
+   <!--        </li>-->
+   <!--    </ul>-->
+   <!--</div>-->
 </nav>
-<slot name="breadcrumbs"/>
+<div class="drawer">
+   <input id="my-drawer" type="checkbox" class="drawer-toggle" />
+   <div class="drawer-content">
+      <!-- Page content here -->
+      <label for="my-drawer" class="btn btn-primary drawer-button">Open drawer</label>
+   </div>
+   <div class="drawer-side">
+      <label for="my-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
+      <ul class="menu bg-base-200 text-base-content min-h-full w-80 p-4">
+         <!-- Sidebar content here -->
+         <li><a>Sidebar Item 1</a></li>
+         <li><a>Sidebar Item 2</a></li>
+      </ul>
+   </div>
+</div>
+<slot name="breadcrumbs" />
+<script>
+   import gsap from "gsap";
+   import ScrollTrigger from "gsap/scrollTrigger";
+
+   document.addEventListener("DOMContentLoaded", () => {
+      gsap.registerPlugin(ScrollTrigger);
+
+      gsap.to("nav", {
+         backgroundColor: "hsla(255, 0, 0%, 0.8)",
+         duration: 0.5,
+         scrollTrigger: {
+            trigger: "body",
+            start: "top+=5 top",
+            toggleActions: "play none none reverse"
+         }
+      });
+   });
+</script>

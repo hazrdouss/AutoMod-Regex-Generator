@@ -1,22 +1,22 @@
 ---
 // layout imports
-import Head from '../layouts/MainHead.astro'
+import Head from "../layouts/MainHead.astro";
 import NavBar from "./NavBar.astro";
-const {bodyClasses, mainClasses, title, description} = Astro.props;
+const { bodyClasses, mainClasses, title, description } = Astro.props;
 ---
 
-<html data-theme="business" lang="en">
-<Head {title}/>
-<body class="selection:bg-zinc-200/20 relative bg-zinc-900" class:list={[bodyClasses]}>
-<header class="fixed top-0 right-0 left-0 h-16 z-10">
-    <NavBar/>
+<html data-theme="dark" lang="en">
+<Head {title} />
+<body class="relative bg-zinc-900 selection:bg-zinc-200/20" class:list={[bodyClasses]}>
+<header class="sticky top-0 right-0 left-0 z-10 h-14 ">
+   <NavBar />
 </header>
-<main class="" class:list={mainClasses}>
-    <slot/>
+<main class="m-1.5 mt-2 border border-white/10 rounded-md" class:list={mainClasses}>
+   <slot />
 </main>
 <script>
-   import "prismjs/prism"
-   import "../scripts/index"
+   import "prismjs/prism";
+   import "../scripts/index";
 </script>
 </body>
 </html>

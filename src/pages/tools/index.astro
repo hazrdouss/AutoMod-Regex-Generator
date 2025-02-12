@@ -1,56 +1,36 @@
 ---
+// data imports
+import { projects } from "../../data/projects";
+
 // layout imports
-import MainLayout from "../../layouts/MainLayout.astro"
+import MainLayout from "../../layouts/MainLayout.astro";
 
 // component imports
-import Gradient from "../../components/Gradient"
+import Gradient from "../../components/Gradient";
 ---
 
-<MainLayout bodyClasses="!bg-transparent" title="Tools">
-    <Gradient client:load/>
+<MainLayout bodyClasses="bg-transparent!" title="Tools">
+   <Gradient client:load />
 
-    <section class="gap-5">
-        <div class="w-full grid grid-cols-[repeat(auto-fit,minmax(24rem,1fr))] gap-5">
-            <div class="card card-bordered bg-zinc-900/40 backdrop-blur-md w-full shadow-xl">
-                <div class="card-body ">
-                    <h2 class="card-title">Automod Regex Generator</h2>
-                    <p>Generate versatile regular expressions for discord's built in automod</p>
-                    <div class="card-actions justify-end">
-                        <a class="btn btn-primary" href="/tools/discord/automod-regex/">Use</a>
-                    </div>
-                </div>
+   <section class="gap-5">
+      <div class="w-full grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-5">
+         {projects.map(({ name, description, banner }) => (
+            <div class="card bg-base-100 w-full shadow-xl">
+               <figure>
+                  <img
+                     class="w-full min-w-0"
+                     src={banner.src}
+                     alt={banner.alt} />
+               </figure>
+               <div class="card-body">
+                  <h2 class="card-title">{name}</h2>
+                  <p>{description.short}</p>
+                  <div class="card-actions justify-end">
+                     <button class="btn btn-primary">View</button>
+                  </div>
+               </div>
             </div>
-            <div class="card card-bordered bg-zinc-900/40 backdrop-blur-md w-full shadow-xl">
-                <div class="card-body ">
-                    <h2 class="card-title">Text Counter</h2>
-                    <p>A basic, sleek word counter (+ characters, sentences, paragraphs)</p>
-                    <div class="card-actions justify-end">
-                        <a class="btn btn-primary" href="/tools/text/counter">Use</a>
-                    </div>
-                </div>
-            </div>
-            <div class="card card-bordered bg-zinc-900/40 backdrop-blur-md w-full shadow-xl">
-                <div class="card-body ">
-                    <h2 class="card-title">Click Speed Test</h2>
-                    <p>Just a quick 5 second click speed tester</p>
-                    <div class="card-actions justify-end">
-                        <a class="btn btn-primary" href="/tools/perf/click-speed">Use</a>
-                    </div>
-                </div>
-            </div>
-            <div class="card card-bordered bg-zinc-900/40 backdrop-blur-md w-full shadow-xl">
-                <div class="card-body ">
-                    <h2 class="card-title">Coming Soon</h2>
-                    <p>More tools in the works...</p>
-                    <div class="card-actions justify-end">
-                        <a class="btn btn-disabled">Use</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <ul>
-            <li>
-            </li>
-        </ul>
-    </section>
+         ))}
+      </div>
+   </section>
 </MainLayout>

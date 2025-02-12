@@ -1,5 +1,5 @@
 import gsap from "gsap";
-import { debounce } from "../../utils";
+import { debounce } from "../../utils.ts";
 import { update } from "@react-spring/three";
 
 const editor = document.querySelector("#input");
