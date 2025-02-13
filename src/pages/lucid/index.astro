@@ -1,0 +1,36 @@
+---
+// data imports
+import { projects } from "../../data/lucid/wallpapers";
+
+// layout imports
+import MainLayout from "../../layouts/MainLayout.astro";
+
+// component imports
+import Gradient from "../../components/Gradient";
+---
+
+<MainLayout bodyClasses="bg-transparent!" title="Tools">
+   <Gradient client:load />
+
+   <section class="gap-5">
+      <div class="w-full grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-5">
+         {projects.map(({ name, description, banner }) => (
+            <div class="card bg-base-100 w-full shadow-xl">
+               <figure>
+                  <img
+                     class="w-full h-42 object-cover min-w-0"
+                     src={banner.src}
+                     alt={banner.alt} />
+               </figure>
+               <div class="card-body">
+                  <h2 class="card-title">{name}</h2>
+                  <p>{description.short}</p>
+                  <div class="card-actions justify-end">
+                     <button class="btn btn-primary">View</button>
+                  </div>
+               </div>
+            </div>
+         ))}
+      </div>
+   </section>
+</MainLayout>

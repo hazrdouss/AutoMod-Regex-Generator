@@ -1,1 +1,0 @@
-import "./smoothScroll.ts";

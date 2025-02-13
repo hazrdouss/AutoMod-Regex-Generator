@@ -1,7 +1,7 @@
 ---
 
 ---
-<nav class=" flex h-full! px-2 py-3 w-full bg-zinc-950/0 transition-colors duration-500 backdrop-blur-lg">
+<nav class=" flex h-full! px-2 py-3 w-full bg-zinc-950/0 transition-colors duration-500 backdrop-blur-[10px]">
    <div class="">
       <a href="/" class="h-full block aspect-square"><img class="h-full" src="/images/logo.webp" alt="logo of website"></a>
    </div>
@@ -25,9 +25,11 @@
 
    window.addEventListener("scroll", () => {
       if (window.scrollY > 10) {
-         navbar.style.background = "rgba(0, 0, 0, 1)"; // Solid black
+         navbar.style.background = "rgba(0, 0, 0, 0.65)";
+         navbar.style.backdropFilter = "blur(10px)";
       } else {
-         navbar.style.background = "rgba(0, 0, 0, 0)"; // Transparent
+         navbar.style.background = "rgba(0, 0, 0, 0)";
+         navbar.style.backdropFilter = "blur(0px)";
       }
    });
 </script>

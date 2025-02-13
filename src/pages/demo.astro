@@ -1,0 +1,14 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import Gradient from "../components/Gradient";
+---
+
+<MainLayout bodyClasses="bg-black!">
+   <section>
+      <video class="z-10" controls autoplay></video>
+   </section>
+   <Gradient className="pointer-events-none" type="sphere" color3="#240115" color2="#240115" color1="#de3c4b" uStrength="0.975" cDistance="10" uSpeed="0.2" client:load />
+   <script>
+      import "../scripts/demo";
+   </script>
+</MainLayout>
