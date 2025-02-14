@@ -1,5 +1,5 @@
 import { RE2JS } from "re2js";
-import { adaptiveDebounce } from "../../utils";
+import { adaptiveDebounce } from "../../../utils";
 import unescape from "validator/lib/unescape";
 import escape from "validator/lib/escape";
 
@@ -42,8 +42,8 @@ function highlight() {
 
    matchCount.innerHTML =
       replaceCount < 1 && expression.raw
-         ? `<span class="text-red-400">${replaceCount}</span>`
-         : `<span class="text-green-400">${replaceCount}</span>`;
+         ? `<span class="text-[var(--color-red-400)]">${replaceCount}</span>`
+         : `<span class="text-[var(--color-green-400)]">${replaceCount}</span>`;
 
    inputHighlight.innerHTML = highlightedText || " ";
 }
