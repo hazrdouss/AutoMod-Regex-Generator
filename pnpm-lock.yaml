@@ -90,9 +90,6 @@ importers:
       daisyui:
         specifier: 5.0.0-beta.7
         version: 5.0.0-beta.7
-      tailwindcss-motion:
-        specifier: ^1.0.0
-        version: 1.1.0(tailwindcss@4.0.6)
 
 packages:
 
@@ -2263,11 +2260,6 @@ packages:
 
   tailwind-children@0.5.0:
     resolution: {integrity: sha512-erFCoS3v7beWuuJ9WdTeG+ZVL0SQrQ8gVxvx0zByYqhfXyPMYSCUNjA/RzYan0HGT/ejPayaCOH4zdXGN9A5IQ==}
-
-  tailwindcss-motion@1.1.0:
-    resolution: {integrity: sha512-0lK6rA4+367ffJdi1TtB72GlMCxJi2TP/xRiHc6An5pZSlU6WfIHhSvLxpcGilGZfBrOqc2q4woH1DEP/lCNbQ==}
-    peerDependencies:
-      tailwindcss: '>=3.0.0 || insiders'
 
   tailwindcss@3.4.17:
     resolution: {integrity: sha512-w33E2aCvSDP0tW9RZuNXadXlkHXqFzSkQew/aIa2i/Sj8fThxwovwlXHSPXTbAHwEIhBFXAedUhP2tueAKP8Og==}
@@ -5033,10 +5025,6 @@ snapshots:
       tailwindcss: 3.4.17
     transitivePeerDependencies:
       - ts-node
-
-  tailwindcss-motion@1.1.0(tailwindcss@4.0.6):
-    dependencies:
-      tailwindcss: 4.0.6
 
   tailwindcss@3.4.17:
     dependencies:
