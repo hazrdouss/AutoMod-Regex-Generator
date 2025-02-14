@@ -40,10 +40,11 @@ function highlight() {
 
    highlightedText += escape(text.substring(lastIndex));
 
-   matchCount.innerHTML =
-      replaceCount < 1 && expression.raw
-         ? `<span class="text-[var(--color-red-400)]">${replaceCount}</span>`
-         : `<span class="text-[var(--color-green-400)]">${replaceCount}</span>`;
+   matchCount.innerHTML = `
+      <span class="${replaceCount < 1 && expression.raw ? "text-red-400" : "text-green-400"}">
+         ${replaceCount}
+      </span>
+   `;
 
    inputHighlight.innerHTML = highlightedText || " ";
 }
