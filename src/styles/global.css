@@ -81,7 +81,7 @@ section {
 }
 
 section:first-of-type {
-   @apply min-h-[calc(100svh_-_(var(--spacing)_*_(14+3.5)))];
+   @apply min-h-[calc(100svh_-_(var(--spacing)_*_(14+2)))];
 }
 
 section:last-of-type {

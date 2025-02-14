@@ -8,12 +8,26 @@ const { bodyClasses, mainClasses, title, description } = Astro.props;
 <html data-theme="dark" lang="en">
 <Head {title} />
 <body class="relative bg-zinc-900 selection:bg-zinc-200/20" class:list={[bodyClasses]}>
-<header class="sticky top-0 right-0 left-0 z-10 h-14 ">
-   <NavBar />
-</header>
-<main class="m-1.5 mt-2 border border-white/10 rounded-md" class:list={mainClasses}>
-   <slot />
-</main>
+<div class="drawer">
+   <input id="sidebar" type="checkbox" class="drawer-toggle" />
+   <div class="drawer-content flex flex-col">
+      <header class="sticky top-0 right-0 left-0 z-10 h-14 ">
+         <NavBar />
+      </header>
+      <main class="m-1.5 mt-2 border border-white/10 rounded-md" class:list={mainClasses}>
+         <slot />
+      </main>
+   </div>
+   <div class="drawer-side">
+      <label for="sidebar" aria-label="close sidebar" class="drawer-overlay"></label>
+      <ul class="menu bg-base-200 min-h-full w-80 p-4">
+         <!-- Sidebar content here -->
+         <li><a>Sidebar Item 1</a></li>
+         <li><a>Sidebar Item 2</a></li>
+      </ul>
+   </div>
+</div>
+
 <script>
    import "prismjs/prism";
    import "../scripts/index";
