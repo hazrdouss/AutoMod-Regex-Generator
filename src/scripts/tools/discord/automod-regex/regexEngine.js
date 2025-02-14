@@ -40,9 +40,13 @@ function highlight() {
 
    highlightedText += escape(text.substring(lastIndex));
 
+   const matchCountColor =
+      replaceCount < 1 && expression.raw
+         ? "--color-red-400"
+         : "--color-green-400";
+
    matchCount.innerHTML = `
-      <span class="${replaceCount < 1 && expression.raw ? "text-red-400" : "text-green-400"}">
-         ${replaceCount}
+      <span style="color: var(${matchCountColor})"
       </span>
    `;
 
