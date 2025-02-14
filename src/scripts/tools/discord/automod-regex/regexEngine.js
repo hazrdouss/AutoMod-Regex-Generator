@@ -46,7 +46,7 @@ function highlight() {
          : "--color-green-400";
 
    matchCount.innerHTML = `
-      <span style="color: var(${matchCountColor})"
+      <span style="color: var(${matchCountColor})">${replaceCount}
       </span>
    `;
 
