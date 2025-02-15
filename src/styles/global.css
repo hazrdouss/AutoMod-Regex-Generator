@@ -9,8 +9,6 @@
 @plugin "daisyui/theme" {
    name: "hazrd";
    default: true;
-   prefersdark: false;
-   color-scheme: "dark";
    --color-base-100: oklch(14% 0 0);
    --color-base-200: oklch(20% 0 0);
    --color-base-300: oklch(26% 0 0);
@@ -95,4 +93,29 @@ h4,
 h5,
 h6 {
    @apply font-bold;
+}
+
+@utility color {
+   position: relative;
+   border-radius: 9999px;
+
+   inline-size: calc(var(--spacing) * 7);
+   block-size: calc(var(--spacing) * 7);
+   padding-inline: 2px;
+   border: solid 2px hsla(0, 0%, 100%, 0.1);
+
+   &::-webkit-color-swatch {
+      border: none 1px hsla(0, 0%, 100%, 0.1);
+      border-radius: 9999px;
+   }
+}
+
+@utility color-md {
+   inline-size: calc(var(--spacing) * 12) !important;
+}
+@utility color-lg {
+   inline-size: calc(var(--spacing) * 20) !important;
+}
+@utility color-xl {
+   inline-size: calc(var(--spacing) * 32) !important;
 }
