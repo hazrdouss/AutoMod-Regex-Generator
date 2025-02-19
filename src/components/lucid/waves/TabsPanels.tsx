@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { StrictMode, useEffect, useRef } from "react";
 import { useTabsContext } from "./context/TabsContex.tsx";
 import gsap from "gsap";
 
@@ -22,17 +22,17 @@ const TabsPanels = () => {
    }, [tabsVisible, activeTab]);
 
    return (
-      <>
+      <StrictMode>
          {tabsVisible && (
             <div
                data-tab={activeTab}
                ref={contentRef}
-               className="fixed bottom-20 p-2 rounded-xl overflow-hidden border border-white/10 border-b-2 bg-base-200/80 backdrop-blur-xl"
+               className="fixed bottom-20 p-2 rounded-xl border border-white/10 border-b-2 bg-base-200/80 backdrop-blur-xl"
             >
                {tabsList().find((tab) => tab.id === activeTab)?.content}
             </div>
          )}
-      </>
+      </StrictMode>
    );
 };
 

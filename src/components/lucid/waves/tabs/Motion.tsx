@@ -70,10 +70,13 @@ const ColorSettings = () => {
                      type="checkbox"
                      name="animate"
                      id="enableTransition"
-                     defaultChecked
+                     checked={settings.enableTransition}
                      className="toggle"
                      onChange={(e) => {
-                        setSetting("enableTransition", e.target.checked);
+                        setSetting(
+                           "enableTransition",
+                           e.target.checked ? "on" : "off",
+                        );
                      }}
                   />
                </fieldset>
@@ -92,7 +95,7 @@ const ColorSettings = () => {
                      id="speed"
                      step="0.01"
                      className="input w-full"
-                     defaultValue={settings.uSpeed}
+                     value={settings.uSpeed}
                      onChange={(e) => {
                         setSetting("uSpeed", e.target.value);
                      }}
@@ -103,9 +106,8 @@ const ColorSettings = () => {
                      max="2"
                      step="0.1"
                      className="range range-xs w-full"
-                     defaultValue={settings.uSpeed}
+                     value={settings.uSpeed}
                      onChange={(e) => {
-                        document.getElementById("speed").value = e.target.value;
                         setSetting("uSpeed", e.target.value);
                      }}
                   />

@@ -1,50 +1,14 @@
-import React, { useEffect } from "react";
+import React from "react";
 
-import { RotateCcw } from "lucide-react";
 import { useSettingsContext } from "../context/SettingsContext.tsx";
+import Reset from "../Reset.tsx";
 
 const Shape = () => {
-   const { settings, setSettings, setSetting, defaultSettings } =
-      useSettingsContext();
-
-   const resetSettings = () => {
-      setSettings((prev) => ({
-         ...prev,
-         type: defaultSettings.type,
-         uStrength: defaultSettings.uStrength,
-         uDensity: defaultSettings.uDensity,
-      }));
-   };
-
-   const handleScrollIncrement = (
-      e: React.WheelEvent,
-      numberInput: string,
-      setting: string,
-   ) => {
-      const numInput = document.getElementById(numberInput) as HTMLInputElement;
-      const target = e.target as HTMLInputElement;
-      if (e.deltaY > 0) {
-         target.stepUp();
-      } else {
-         target.stepDown();
-      }
-      numInput.value = target.value;
-      setSetting(setting, target.value);
-   };
-
-   useEffect(() => {
-      console.log("Shapes Rendered");
-   });
+   const { settings, setSetting } = useSettingsContext();
 
    return (
       <div>
-         <div
-            className={
-               "absolute top-0.5 -right-2.5 translate-x-full cursor-pointer opacity-10 hover:-rotate-20 hover:opacity-100 active:-rotate-135 transition-all duration-150"
-            }
-         >
-            <RotateCcw size={16} strokeWidth={3} onClick={resetSettings} />
-         </div>
+         <Reset list={["type", "uStrength", "uDensity", "uAmplitude"]} />
          <div>
             <fieldset
                className={
@@ -58,12 +22,12 @@ const Shape = () => {
                      name="type"
                      id="type-plane"
                      className="hidden peer/type-plane"
-                     defaultChecked={settings.type === "plane"}
-                  />
-                  <label
-                     onClick={() => {
+                     checked={settings.type === "plane"}
+                     onChange={() => {
                         setSetting("type", "plane");
                      }}
+                  />
+                  <label
                      htmlFor="type-plane"
                      className="flex-1 btn rounded-l-lg join-item bg-primary/25 btn-xs peer-checked/type-plane:bg-primary"
                   >
@@ -75,12 +39,12 @@ const Shape = () => {
                      name="type"
                      id="type-sphere"
                      className="hidden peer/type-sphere"
-                     defaultChecked={settings.type === "sphere"}
-                  />
-                  <label
-                     onClick={() => {
+                     checked={settings.type === "sphere"}
+                     onChange={() => {
                         setSetting("type", "sphere");
                      }}
+                  />
+                  <label
                      htmlFor="type-sphere"
                      className="flex-1 btn join-item bg-primary/25 btn-xs peer-checked/type-sphere:bg-primary"
                   >
@@ -92,12 +56,12 @@ const Shape = () => {
                      name="type"
                      id="type-waterPlane"
                      className="hidden peer/type-waterPlane"
-                     defaultChecked={settings.type === "waterPlane"}
-                  />
-                  <label
-                     onClick={() => {
+                     checked={settings.type === "waterPlane"}
+                     onChange={() => {
                         setSetting("type", "waterPlane");
                      }}
+                  />
+                  <label
                      htmlFor="type-waterPlane"
                      className="flex-1 btn join-item bg-primary/25 btn-xs peer-checked/type-waterPlane:bg-primary"
                   >
@@ -119,7 +83,7 @@ const Shape = () => {
                      id="uStrength"
                      step="0.01"
                      className="input input-xs w-12 shrink "
-                     defaultValue={settings.uStrength}
+                     value={settings.uStrength}
                      onChange={(e) => {
                         setSetting("uStrength", e.target.value);
                      }}
@@ -130,26 +94,9 @@ const Shape = () => {
                      max="10"
                      step="0.1"
                      className="cursor-w-resize range range-xs w-full"
-                     defaultValue={settings.uStrength}
+                     value={settings.uStrength}
                      onChange={(e) => {
-                        const numInput = document.getElementById(
-                           "uStrength",
-                        ) as HTMLInputElement;
-                        numInput.value = e.target.value;
                         setSetting("uStrength", e.target.value);
-                     }}
-                     onWheel={(e) => {
-                        const numInput = document.getElementById(
-                           "uStrength",
-                        ) as HTMLInputElement;
-                        const target = e.target as HTMLInputElement;
-                        if (e.deltaY > 0) {
-                           target.stepUp();
-                        } else {
-                           target.stepDown();
-                        }
-                        numInput.value = target.value;
-                        setSetting("uStrength", target.value);
                      }}
                   />
                </div>
@@ -168,7 +115,7 @@ const Shape = () => {
                      id="uDensity"
                      step="0.01"
                      className="input input-xs w-12 shrink "
-                     defaultValue={settings.uDensity}
+                     value={settings.uDensity}
                      onChange={(e) => {
                         setSetting("uDensity", e.target.value);
                      }}
@@ -179,12 +126,8 @@ const Shape = () => {
                      max="10"
                      step="0.1"
                      className="cursor-w-resize range range-xs w-full"
-                     defaultValue={settings.uDensity}
+                     value={settings.uDensity}
                      onChange={(e) => {
-                        const numInput = document.getElementById(
-                           "uDensity",
-                        ) as HTMLInputElement;
-                        numInput.value = e.target.value;
                         setSetting("uDensity", e.target.value);
                      }}
                   />
@@ -202,13 +145,13 @@ const Shape = () => {
                      <input
                         type="number"
                         min="0"
-                        name="uFrequency"
-                        id="uFrequency"
+                        name="uAmplitude"
+                        id="uAmplitude"
                         step="0.01"
                         className="input input-xs w-12 shrink "
-                        defaultValue={settings.uFrequency}
+                        value={settings.uAmplitude}
                         onChange={(e) => {
-                           setSetting("uFrequency", e.target.value);
+                           setSetting("uAmplitude", e.target.value);
                         }}
                      />
                      <input
@@ -217,13 +160,9 @@ const Shape = () => {
                         max="10"
                         step="0.1"
                         className="cursor-w-resize range range-xs w-full"
-                        defaultValue={settings.uFrequency}
+                        value={settings.uAmplitude}
                         onChange={(e) => {
-                           const numInput = document.getElementById(
-                              "uFrequency",
-                           ) as HTMLInputElement;
-                           numInput.value = e.target.value;
-                           setSetting("uFrequency", e.target.value);
+                           setSetting("uAmplitude", e.target.value);
                         }}
                      />
                   </div>

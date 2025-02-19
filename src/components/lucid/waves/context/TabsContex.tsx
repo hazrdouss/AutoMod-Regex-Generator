@@ -1,8 +1,8 @@
 import React, { createContext, useContext, useState } from "react";
-import tabsList from "../tabs/tabsList.tsx";
+import index from "../tabs/tabsList.tsx";
 
 interface TabsContext {
-   tabsList: typeof tabsList;
+   tabsList: typeof index;
    activeTab: string;
    setActiveTab: React.Dispatch<React.SetStateAction<string>>;
    tabsVisible: boolean;
@@ -18,13 +18,13 @@ export const TabsContext = createContext<TabsContext | null>(null);
 export default function TabsContextProvider({
    children,
 }: TabsContextProviderProps) {
-   const [activeTab, setActiveTab] = useState(tabsList()[0].id);
+   const [activeTab, setActiveTab] = useState(index()[0].id);
    const [tabsVisible, setTabsVisible] = useState<boolean>(false);
 
    return (
       <TabsContext.Provider
          value={{
-            tabsList,
+            tabsList: index,
             activeTab,
             setActiveTab,
             tabsVisible,

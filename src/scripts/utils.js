@@ -1,4 +1,5 @@
 import gsap from "gsap";
+import { createElement, CheckCircle, XCircle, Info } from "lucide";
 
 export const debounce = (callback, wait) => {
    let timeoutId = null;
@@ -20,6 +21,12 @@ export const regEscape = (string) => {
 };
 
 export const toast = (text, type) => {
+   // const typeIcons = {
+   //    success: createElement(CheckCircle),
+   //    error: createElement(XCircle),
+   //    info: createElement(Info),
+   // };
+
    const toast = document.createElement("div");
    toast.innerHTML = `
     <div class="-translate-x-3 toast hide toast-start px-5! py-2! rounded-xl alert">

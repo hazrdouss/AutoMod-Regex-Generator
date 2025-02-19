@@ -19,8 +19,9 @@ const defaultSettings = {
    cDistance: 3.5,
    uStrength: 0.96,
    uDensity: 2.27,
-   uFrequency: 2.27,
+   uAmplitude: 0.725,
    toggleAxis: true,
+   cPolarAngle: 122,
 };
 
 export default defaultSettings;

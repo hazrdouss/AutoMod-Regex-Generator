@@ -53,6 +53,9 @@ importers:
       lenis:
         specifier: ^1.1.20
         version: 1.1.20(react@18.3.1)
+      lucide:
+        specifier: ^0.475.0
+        version: 0.475.0
       lucide-react:
         specifier: ^0.475.0
         version: 0.475.0(react@18.3.1)
@@ -1700,6 +1703,9 @@ packages:
 
   lucide-static@0.473.0:
     resolution: {integrity: sha512-fHDRD9De8oyAVXkcmHTtC4ENT6jGxcyey7y/wBLkKlLvU/+zhR2VnAcwA2Hvsa9TJIEizc06jdC7PWoboc6Mkg==}
+
+  lucide@0.475.0:
+    resolution: {integrity: sha512-86jIup6DQGWX5etGuhLlojx0bu+HbxLvRI5B2SumOBznImMxEXyKF0YpScZ51BOix2gq5LfeO8mnvVVPlK/Fdg==}
 
   magic-string@0.30.17:
     resolution: {integrity: sha512-sNPKHvyjVf7gyjwS4xGTaW/mCnF8wnjtifKBEhxfZ7E/S8tQ0rssrwGNn6q8JH/ohItJfSQp9mBtQYuTlH5QnA==}
@@ -4211,6 +4217,8 @@ snapshots:
       react: 18.3.1
 
   lucide-static@0.473.0: {}
+
+  lucide@0.475.0: {}
 
   magic-string@0.30.17:
     dependencies:

@@ -1,5 +1,5 @@
 import React from "react";
-import Gradient from "../../Gradient";
+import Gradient from "../../Gradient.tsx";
 import { useSettingsContext } from "./context/SettingsContext.tsx";
 
 const WaveBg = () => {

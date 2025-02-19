@@ -1,13 +1,12 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
-import { RotateCcw } from "lucide-react";
 import { useSettingsContext } from "../context/SettingsContext.tsx";
 import { gsap } from "gsap";
+import Reset from "../Reset.tsx";
 
 const Color = () => {
-   const { settings, setSettings, setSetting, defaultSettings } =
-      useSettingsContext();
-   const [envToggled, setEnvToggled] = useState(false);
+   const { settings, setSetting, defaultSettings } = useSettingsContext();
+   const [envToggled, setEnvToggled] = useState(settings.lightType === "env");
    const envPresetEl = useRef(null);
 
    useEffect(() => {
@@ -26,22 +25,23 @@ const Color = () => {
       }
    }, [envToggled]);
 
-   const resetSettings = () => {
-      setSettings((prev) => ({
-         ...prev,
-         type: defaultSettings.type,
-      }));
-   };
-
    return (
       <div>
-         <div
-            className={
-               "absolute top-0.5 -right-2.5 translate-x-full cursor-pointer opacity-10 hover:-rotate-20 hover:opacity-100 active:-rotate-135 transition-all duration-150"
-            }
-         >
-            <RotateCcw size={16} strokeWidth={3} onClick={resetSettings} />
-         </div>
+         <Reset
+            list={[
+               "bgColor",
+               "color1",
+               "color2",
+               "color3",
+               "lightType",
+               "envPreset",
+               "brightness",
+               "reflection",
+            ]}
+            callback={() => {
+               setEnvToggled(defaultSettings.envPreset === "env");
+            }}
+         />
          <div className={"flex flex-col gap-4"}>
             <fieldset
                className={
@@ -55,7 +55,7 @@ const Color = () => {
                      name="color-bg"
                      id="color-bg"
                      className="color color-lg"
-                     defaultValue={settings.bgColor}
+                     value={settings.bgColor}
                      onChange={(e) => {
                         setSetting("bgColor", e.target.value);
                      }}
@@ -72,10 +72,10 @@ const Color = () => {
                   <div className="flex gap-2 w-full">
                      <input
                         type="color"
-                        defaultValue={settings.color1}
                         name="color-1"
                         id="color-1"
                         className="color color-lg"
+                        value={settings.color1}
                         onChange={(e) => {
                            setSetting("color1", e.target.value);
                         }}
@@ -91,10 +91,10 @@ const Color = () => {
                   <div className="flex gap-2 w-full">
                      <input
                         type="color"
-                        defaultValue={settings.color2}
                         name="color-2"
                         id="color-2"
                         className="color color-lg"
+                        value={settings.color2}
                         onChange={(e) => {
                            setSetting("color2", e.target.value);
                         }}
@@ -110,10 +110,10 @@ const Color = () => {
                   <div className="flex gap-2 w-full">
                      <input
                         type="color"
-                        defaultValue={settings.color3}
                         name="color-3"
                         id="color-3"
                         className="color color-lg"
+                        value={settings.color3}
                         onChange={(e) => {
                            setSetting("color3", e.target.value);
                         }}
@@ -121,23 +121,7 @@ const Color = () => {
                   </div>
                </fieldset>
             </div>
-            <fieldset
-               className={
-                  "fieldset grow p-2 flex gap-2 border border-white/5 rounded-sm"
-               }
-            >
-               <legend>Grain</legend>
-               <input
-                  type="checkbox"
-                  name="grain"
-                  id="grain"
-                  className="toggle toggle-sm"
-                  defaultChecked={settings.grain === "on"}
-                  onChange={(e) => {
-                     setSetting("grain", e.target.checked ? "on" : "off");
-                  }}
-               />
-            </fieldset>
+
             <fieldset
                className={
                   "fieldset grow flex-1 p-2 flex gap-2 border border-white/5 rounded-sm"
@@ -153,8 +137,8 @@ const Color = () => {
                      type="checkbox"
                      name="environment"
                      id="environment"
-                     defaultChecked={settings.lightType === "env"}
                      className="toggle toggle-sm"
+                     checked={settings.lightType === "env"}
                      onChange={(e) => {
                         setEnvToggled(e.target.checked);
                         setSetting(
@@ -170,15 +154,15 @@ const Color = () => {
                      >
                         <input
                            type="radio"
-                           name="type"
+                           name="envPreset-city"
                            id="envPreset-city"
                            className="hidden peer/envPreset-city"
-                           defaultChecked={settings.envPreset === "city"}
-                        />
-                        <label
-                           onClick={() => {
+                           checked={settings.envPreset === "city"}
+                           onChange={() => {
                               setSetting("envPreset", "city");
                            }}
+                        />
+                        <label
                            htmlFor="envPreset-city"
                            className="btn bg-primary/25 rounded-l-lg join-item btn-xs peer-checked/envPreset-city:bg-primary"
                         >
@@ -187,15 +171,15 @@ const Color = () => {
 
                         <input
                            type="radio"
-                           name="type"
+                           name="envPreset-dawn"
                            id="envPreset-dawn"
                            className="hidden peer/envPreset-dawn"
-                           defaultChecked={settings.envPreset === "dawn"}
-                        />
-                        <label
-                           onClick={() => {
+                           checked={settings.envPreset === "dawn"}
+                           onChange={() => {
                               setSetting("envPreset", "dawn");
                            }}
+                        />
+                        <label
                            htmlFor="envPreset-dawn"
                            className="btn bg-primary/25 join-item btn-xs peer-checked/envPreset-dawn:bg-primary"
                         >
@@ -204,15 +188,15 @@ const Color = () => {
 
                         <input
                            type="radio"
-                           name="type"
+                           name="envPreset-lobby"
                            id="envPreset-lobby"
                            className="hidden peer/envPreset-lobby"
-                           defaultChecked={settings.envPreset === "lobby"}
-                        />
-                        <label
-                           onClick={() => {
+                           checked={settings.envPreset === "lobby"}
+                           onChange={() => {
                               setSetting("envPreset", "lobby");
                            }}
+                        />
+                        <label
                            htmlFor="envPreset-lobby"
                            className="btn bg-primary/25 join-item btn-xs peer-checked/envPreset-lobby:bg-primary"
                         >
@@ -223,40 +207,6 @@ const Color = () => {
                </div>
             </fieldset>
 
-            <fieldset
-               className={
-                  "fieldset grow flex-1 p-2 flex gap-2 border border-white/5 rounded-sm"
-               }
-            >
-               <legend>Blur</legend>
-               <div className={"flex w-full gap-2 items-center"}>
-                  <input
-                     type="number"
-                     min="0"
-                     name="blur"
-                     id="blur"
-                     step="1"
-                     className="input input-xs w-12"
-                     defaultValue={settings.blur}
-                     onChange={(e) => {
-                        setSetting("blur", e.target.value);
-                     }}
-                  />
-                  <input
-                     type="range"
-                     min="0"
-                     max="10"
-                     step="1"
-                     className="range range-xs w-full"
-                     defaultValue={settings.blur}
-                     onChange={(e) => {
-                        document.getElementById("blur").nodeValue =
-                           e.target.value;
-                        setSetting("blur", e.target.value);
-                     }}
-                  />
-               </div>
-            </fieldset>
             {!envToggled && (
                <fieldset
                   className={
@@ -272,7 +222,7 @@ const Color = () => {
                         id="brightness"
                         step="0.01"
                         className="input input-xs w-12"
-                        defaultValue={settings.brightness}
+                        value={settings.brightness}
                         onChange={(e) => {
                            setSetting("brightness", e.target.value);
                         }}
@@ -283,10 +233,8 @@ const Color = () => {
                         max="2"
                         step="0.1"
                         className="range range-xs w-full"
-                        defaultValue={settings.brightness}
+                        value={settings.brightness}
                         onChange={(e) => {
-                           document.getElementById("brightness").nodeValue =
-                              e.target.value;
                            setSetting("brightness", e.target.value);
                         }}
                      />
@@ -308,7 +256,7 @@ const Color = () => {
                         id="reflection"
                         step="0.01"
                         className="input input-xs w-12 "
-                        defaultValue={settings.reflection}
+                        value={settings.reflection}
                         onChange={(e) => {
                            setSetting("reflection", e.target.value);
                         }}
@@ -319,12 +267,9 @@ const Color = () => {
                         max="2"
                         step="0.1"
                         className="range range-xs w-full"
-                        defaultValue={settings.reflection}
+                        value={settings.reflection}
                         onChange={(e) => {
-                           document.getElementById("reflection").nodeValue =
-                              e.target.value;
                            setSetting("reflection", e.target.value);
-                           console.log(e.target.value);
                         }}
                      />
                   </div>

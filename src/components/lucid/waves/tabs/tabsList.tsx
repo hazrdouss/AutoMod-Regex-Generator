@@ -1,21 +1,24 @@
-import * as Tabs from "./index";
+import Color from "./Color.tsx";
+import Shape from "./Shape.tsx";
+import Motion from "./Motion.tsx";
+import Effects from "./Effects.tsx";
 
 const tabsList = () => {
    return [
       {
          id: "shape",
          label: "Shape",
-         content: <Tabs.Shape />,
+         content: <Shape />,
       },
       {
          id: "colors",
          label: "Colors",
-         content: <Tabs.Color />,
+         content: <Color />,
       },
       {
          id: "motion",
          label: "Motion",
-         content: <Tabs.Motion />,
+         content: <Motion />,
       },
       // {
       //    id: "view",
@@ -114,6 +117,11 @@ const tabsList = () => {
       //          </fieldset>
       //       </form>
       //    ),
+      // },
+      // {
+      //    id: "effects",
+      //    label: "Effects",
+      //    content: <Effects />,
       // },
    ];
 };
