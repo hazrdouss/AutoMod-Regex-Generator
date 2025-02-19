@@ -1,12 +1,10 @@
 ---
 // LAYOUT IMPORTS
 import MainLayout from "../../../layouts/MainLayout.astro";
-import Gradient from "../../../components/Gradient";
-import WaveEditor from "../../../components/WaveEditor";
+import WaveEditor from "../../../components/lucid/waves/WaveEditor";
 ---
 <MainLayout bodyClasses="bg-transparent!">
    <section class="">
-      <!--<Gradient client:load />-->
-      <WaveEditor class:list={"bg-black"} client:load />
+      <WaveEditor client:load />
    </section>
 </MainLayout>
